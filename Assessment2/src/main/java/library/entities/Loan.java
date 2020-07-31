@@ -17,11 +17,11 @@ public class Loan implements Serializable {
     private Date date;
     private LoanState state;
 
-    public Loan(int loanId, Book bOoK, Member mEmBeR, Date DuE_dAtE) {
+    public Loan(int loanId, Book book, Member member, Date dueDate) {
         this.loanId = loanId;
-        this.book = bOoK;
-        this.member = mEmBeR;
-        this.date = DuE_dAtE;
+        this.book = book;
+        this.member = member;
+        this.date = dueDate;
         this.state = LoanState.CURRENT;
     }
 
