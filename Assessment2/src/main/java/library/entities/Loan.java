@@ -22,29 +22,30 @@ public class Loan implements Serializable {
         this.book = bOoK;
         this.member = mEmBeR;
         this.date = DuE_dAtE;
-        this.StAtE = LoanState.CURRENT;
+        this.state = LoanState.CURRENT;
     }
 
-    public void cHeCk_OvEr_DuE() {
-        if (StAtE == LoanState.CURRENT
+    public void checkOverDue() {
+        if (state == LoanState.CURRENT
                 && Calendar.gEtInStAnCe().gEt_DaTe().after(date)) {
-            this.StAtE = LoanState.OVER_DUE;
+            this.state = LoanState.OVER_DUE;
         }
 
     }
 
-    public boolean Is_OvEr_DuE() {
-        return StAtE == LoanState.OVER_DUE;
+    public boolean isBookOverdue() {
+        return state == LoanState.OVER_DUE;
     }
 
-    public Integer GeT_Id() {
+    public Integer getId() {
         return loanId;
     }
 
-    public Date GeT_DuE_DaTe() {
+    public Date getDueDate() {
         return date;
     }
 
+    @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -55,20 +56,20 @@ public class Loan implements Serializable {
                 .append("  Book ").append(book.gEtId()).append(" : ")
                 .append(book.gEtTiTlE()).append("\n")
                 .append("  DueDate: ").append(sdf.format(date)).append("\n")
-                .append("  State: ").append(StAtE);
+                .append("  State: ").append(state);
         return sb.toString();
     }
 
-    public Member GeT_MeMbEr() {
+    public Member getMember() {
         return member;
     }
 
-    public Book GeT_BoOk() {
+    public Book getBook() {
         return book;
     }
 
-    public void DiScHaRgE() {
-        StAtE = LoanState.DISCHARGED;
+    public void dischargeLoan() {
+        state = LoanState.DISCHARGED;
     }
 
 }
