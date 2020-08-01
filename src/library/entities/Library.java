@@ -21,19 +21,19 @@ public class Library implements Serializable {
 	private static final int lOaNlImIt = 2;
 	private static final int loanPeriod = 2;
 	private static final double FiNe_PeR_DaY = 1.0;
-	private static final double maxFinesOwed = 1.0;
+	private static final double maxfinesOwed = 1.0;
 	private static final double damageFee = 2.0;
 	
 	private static Library SeLf;
 	private int bOoK_Id;
-	private int mEmBeR_Id;
+	private int memberId;
 	private int lOaN_Id;
 	private Date lOaN_DaTe;
 	
 	private Map<Integer, Book> CaTaLoG;
 	private Map<Integer, Member> MeMbErS;
 	private Map<Integer, Loan> LoAnS;
-	private Map<Integer, Loan> CuRrEnT_LoAnS;
+	private Map<Integer, Loan> currentNames;
 	private Map<Integer, Book> DaMaGeD_BoOkS;
 	
 
@@ -41,10 +41,10 @@ public class Library implements Serializable {
 		CaTaLoG = new HashMap<>();
 		MeMbErS = new HashMap<>();
 		LoAnS = new HashMap<>();
-		CuRrEnT_LoAnS = new HashMap<>();
+		currentNames = new HashMap<>();
 		DaMaGeD_BoOkS = new HashMap<>();
 		bOoK_Id = 1;
-		mEmBeR_Id = 1;		
+		memberId = 1;		
 		lOaN_Id = 1;		
 	}
 
@@ -89,8 +89,8 @@ public class Library implements Serializable {
 	}
 	
 	
-	public int gEt_MeMbEr_Id() {
-		return mEmBeR_Id;
+	public int gEt_memberId() {
+		return memberId;
 	}
 	
 	
@@ -99,8 +99,8 @@ public class Library implements Serializable {
 	}
 
 	
-	private int gEt_NeXt_MeMbEr_Id() {
-		return mEmBeR_Id++;
+	private int gEt_NeXt_memberId() {
+		return memberId++;
 	}
 
 	
@@ -119,13 +119,13 @@ public class Library implements Serializable {
 	}
 
 
-	public List<Loan> lISt_CuRrEnT_LoAnS() {
-		return new ArrayList<Loan>(CuRrEnT_LoAnS.values());
+	public List<Loan> lISt_currentNames() {
+		return new ArrayList<Loan>(currentNames.values());
 	}
 
 
 	public Member aDd_MeMbEr(String lastName, String firstName, String email, int phoneNo) {		
-		Member member = new Member(lastName, firstName, email, phoneNo, gEt_NeXt_MeMbEr_Id());
+		Member member = new Member(lastName, firstName, email, phoneNo, gEt_NeXt_memberId());
 		MeMbErS.put(member.GeT_ID(), member);		
 		return member;
 	}
@@ -133,7 +133,7 @@ public class Library implements Serializable {
 	
 	public Book aDd_BoOk(String a, String t, String c) {		
 		Book b = new Book(a, t, c, gEt_NeXt_BoOk_Id());
-		CaTaLoG.put(b.gEtId(), b);		
+		CaTaLoG.put(b.getId(), b);		
 		return b;
 	}
 
@@ -158,10 +158,10 @@ public class Library implements Serializable {
 
 	
 	public boolean cAn_MeMbEr_BoRrOw(Member member) {		
-		if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == lOaNlImIt ) 
+		if (member.gEt_nUmBeR_Of_currentNames() == lOaNlImIt ) 
 			return false;
 				
-		if (member.FiNeS_OwEd() >= maxFinesOwed) 
+		if (member.FiNeS_OwEd() >= maxfinesOwed) 
 			return false;
 				
 		for (Loan loan : member.GeT_LoAnS()) 
@@ -173,7 +173,7 @@ public class Library implements Serializable {
 
 	
 	public int gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(Member MeMbEr) {		
-		return lOaNlImIt - MeMbEr.gEt_nUmBeR_Of_CuRrEnT_LoAnS();
+		return lOaNlImIt - MeMbEr.gEt_nUmBeR_Of_currentNames();
 	}
 
 	
@@ -183,14 +183,14 @@ public class Library implements Serializable {
 		member.TaKe_OuT_LoAn(loan);
 		book.BoRrOw();
 		LoAnS.put(loan.GeT_Id(), loan);
-		CuRrEnT_LoAnS.put(book.gEtId(), loan);
+		currentNames.put(book.getId(), loan);
 		return loan;
 	}
 	
 	
 	public Loan GeT_LoAn_By_BoOkId(int bookId) {
-		if (CuRrEnT_LoAnS.containsKey(bookId)) 
-			return CuRrEnT_LoAnS.get(bookId);
+		if (currentNames.containsKey(bookId)) 
+			return currentNames.get(bookId);
 		
 		return null;
 	}
@@ -213,28 +213,28 @@ public class Library implements Serializable {
 		double oVeR_DuE_FiNe = CaLcUlAtE_OvEr_DuE_FiNe(cUrReNt_LoAn);
 		mEmBeR.AdD_FiNe(oVeR_DuE_FiNe);	
 		
-		mEmBeR.dIsChArGeLoAn(cUrReNt_LoAn);
+		mEmBeR.dischargeLoan(cUrReNt_LoAn);
 		bOoK.ReTuRn(iS_dAmAgEd);
 		if (iS_dAmAgEd) {
 			mEmBeR.AdD_FiNe(damageFee);
-			DaMaGeD_BoOkS.put(bOoK.gEtId(), bOoK);
+			DaMaGeD_BoOkS.put(bOoK.getId(), bOoK);
 		}
 		cUrReNt_LoAn.DiScHaRgE();
-		CuRrEnT_LoAnS.remove(bOoK.gEtId());
+		currentNames.remove(bOoK.getId());
 	}
 
 
-	public void cHeCk_CuRrEnT_LoAnS() {
-		for (Loan lOaN : CuRrEnT_LoAnS.values()) 
+	public void cHeCk_currentNames() {
+		for (Loan lOaN : currentNames.values()) 
 			lOaN.cHeCk_OvEr_DuE();
 				
 	}
 
 
 	public void RePaIr_BoOk(Book cUrReNt_BoOk) {
-		if (DaMaGeD_BoOkS.containsKey(cUrReNt_BoOk.gEtId())) {
+		if (DaMaGeD_BoOkS.containsKey(cUrReNt_BoOk.getId())) {
 			cUrReNt_BoOk.RePaIr();
-			DaMaGeD_BoOkS.remove(cUrReNt_BoOk.gEtId());
+			DaMaGeD_BoOkS.remove(cUrReNt_BoOk.getId());
 		}
 		else 
 			throw new RuntimeException("Library: repairBook: book is not damaged");

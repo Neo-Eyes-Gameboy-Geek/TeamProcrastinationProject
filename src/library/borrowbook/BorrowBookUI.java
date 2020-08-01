@@ -54,8 +54,8 @@ public class BorrowBookUI {
 					break;
 				}
 				try {
-					int MeMbEr_Id = Integer.valueOf(MEM_STR).intValue();
-					CoNtRoL.SwIpEd(MeMbEr_Id);
+					int memberId = Integer.valueOf(MEM_STR).intValue();
+					CoNtRoL.SwIpEd(memberId);
 				}
 				catch (NumberFormatException e) {
 					OuTpUt("Invalid Member Id");
