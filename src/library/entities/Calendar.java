@@ -4,32 +4,32 @@ import java.util.concurrent.TimeUnit;
 
 public class Calendar {
 	
-	private static Calendar sElF;
-	private static java.util.Calendar cAlEnDaR;
+	private static Calendar self;
+	private static java.util.Calendar calendar;
 	
 	
 	private Calendar() {
-		cAlEnDaR = java.util.Calendar.getInstance();
+		calendar = java.util.Calendar.getInstance();
 	}
 	
 	public static Calendar getInstance() {
-		if (sElF == null) {
-			sElF = new Calendar();
+		if (self == null) {
+			self = new Calendar();
 		}
-		return sElF;
+		return self;
 	}
 	
 	public void incrementDate(int days) {
-		cAlEnDaR.add(java.util.Calendar.DATE, days);		
+		calendar.add(java.util.Calendar.DATE, days);		
 	}
 	
-	public synchronized void SeT_DaTe(Date DaTe) {
+	public synchronized void setDate(Date date) {
 		try {
-			cAlEnDaR.setTime(DaTe);
-	        cAlEnDaR.set(java.util.Calendar.HOUR_OF_DAY, 0);  
-	        cAlEnDaR.set(java.util.Calendar.MINUTE, 0);  
-	        cAlEnDaR.set(java.util.Calendar.SECOND, 0);  
-	        cAlEnDaR.set(java.util.Calendar.MILLISECOND, 0);
+			calendar.setTime(date);
+	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
+	        calendar.set(java.util.Calendar.MINUTE, 0);  
+	        calendar.set(java.util.Calendar.SECOND, 0);  
+	        calendar.set(java.util.Calendar.MILLISECOND, 0);
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -37,11 +37,11 @@ public class Calendar {
 	}
 	public synchronized Date getDate() {
 		try {
-	        cAlEnDaR.set(java.util.Calendar.HOUR_OF_DAY, 0);  
-	        cAlEnDaR.set(java.util.Calendar.MINUTE, 0);  
-	        cAlEnDaR.set(java.util.Calendar.SECOND, 0);  
-	        cAlEnDaR.set(java.util.Calendar.MILLISECOND, 0);
-			return cAlEnDaR.getTime();
+	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
+	        calendar.set(java.util.Calendar.MINUTE, 0);  
+	        calendar.set(java.util.Calendar.SECOND, 0);  
+	        calendar.set(java.util.Calendar.MILLISECOND, 0);
+			return calendar.getTime();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -50,10 +50,10 @@ public class Calendar {
 
 	public synchronized Date getDueDate(int loanPeriod) {
 		Date nOw = getDate();
-		cAlEnDaR.add(java.util.Calendar.DATE, loanPeriod);
-		Date dUeDaTe = cAlEnDaR.getTime();
-		cAlEnDaR.setTime(nOw);
-		return dUeDaTe;
+		calendar.add(java.util.Calendar.DATE, loanPeriod);
+		Date dUedate = calendar.getTime();
+		calendar.setTime(nOw);
+		return dUedate;
 	}
 	
 	public synchronized long GeT_DaYs_DiFfErEnCe(Date targetDate) {

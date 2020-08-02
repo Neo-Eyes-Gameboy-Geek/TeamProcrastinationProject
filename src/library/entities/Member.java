@@ -60,7 +60,7 @@ public class Member implements Serializable {
         return finesOwing;
     }
 
-    public void takeOutLoans(Loan loan) {
+    public void takeOutLoan(Loan loan) {
         if (!currentNames.containsKey(loan.getId())) {
             currentNames.put(loan.getId(), loan);
         } else {
@@ -97,7 +97,7 @@ public class Member implements Serializable {
         return change;
     }
 
-    public void dischargeLoans(Loan loan) {
+    public void dischargeLoan(Loan loan) {
         if (currentNames.containsKey(loan.getId())) {
             currentNames.remove(loan.getId());
         } else {
