@@ -91,7 +91,7 @@ public class BorrowBookUI {
 					CoNtRoL.CaNcEl();
 					
 				} else {
-					CoNtRoL.CoMmIt_LoAnS();
+					CoNtRoL.CoMmIt_loanS();
 					iNpUT("Press <any key> to complete ");
 				}
 				break;

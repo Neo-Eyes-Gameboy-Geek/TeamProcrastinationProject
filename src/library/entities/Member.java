@@ -38,8 +38,8 @@ public class Member implements Serializable {
                 .append(String.format("  Fines Owed :  $%.2f", finesOwing))
                 .append("\n");
 
-        for (Loan LoAn : currentNames.values()) {
-            sb.append(LoAn).append("\n");
+        for (Loan loan : currentNames.values()) {
+            sb.append(loan).append("\n");
         }
         return sb.toString();
     }
@@ -60,9 +60,9 @@ public class Member implements Serializable {
         return finesOwing;
     }
 
-    public void takeOutLoan(Loan lOaN) {
-        if (!currentNames.containsKey(lOaN.GeT_Id())) {
-            currentNames.put(lOaN.GeT_Id(), lOaN);
+    public void takeOutLoans(Loan loan) {
+        if (!currentNames.containsKey(loan.getId())) {
+            currentNames.put(loan.getId(), loan);
         } else {
             throw new RuntimeException("Duplicate loan added to member");
         }
@@ -81,25 +81,25 @@ public class Member implements Serializable {
         finesOwing += fine;
     }
 
-    public double payFine(double AmOuNt) {
-        if (AmOuNt < 0) {
+    public double payFine(double amount) {
+        if (amount < 0) {
             throw new RuntimeException("Member.payFine: amount must be positive");
         }
 
         double change = 0;
-        if (AmOuNt > finesOwing) {
-            change = AmOuNt - finesOwing;
+        if (amount > finesOwing) {
+            change = amount - finesOwing;
             finesOwing = 0;
         } else {
-            finesOwing -= AmOuNt;
+            finesOwing -= amount;
         }
 
         return change;
     }
 
-    public void dischargeLoan(Loan LoAn) {
-        if (currentNames.containsKey(LoAn.GeT_Id())) {
-            currentNames.remove(LoAn.GeT_Id());
+    public void dischargeLoans(Loan loan) {
+        if (currentNames.containsKey(loan.getId())) {
+            currentNames.remove(loan.getId());
         } else {
             throw new RuntimeException("No such loan held by member");
         }

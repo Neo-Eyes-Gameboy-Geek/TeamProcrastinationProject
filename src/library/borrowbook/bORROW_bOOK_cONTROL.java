@@ -22,7 +22,7 @@ public class bORROW_bOOK_cONTROL {
 	
 	
 	public bORROW_bOOK_cONTROL() {
-		this.lIbRaRy = Library.GeTiNsTaNcE();
+		this.lIbRaRy = Library.getInstance();
 		sTaTe = CONTROL_STATE.INITIALISED;
 	}
 	
@@ -41,7 +41,7 @@ public class bORROW_bOOK_cONTROL {
 		if (!sTaTe.equals(CONTROL_STATE.READY)) 
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 			
-		mEmBeR = lIbRaRy.gEt_MeMbEr(memberId);
+		mEmBeR = lIbRaRy.getMember(memberId);
 		if (mEmBeR == null) {
 			uI.DiSpLaY("Invalid memberId");
 			return;
@@ -63,7 +63,7 @@ public class bORROW_bOOK_cONTROL {
 		if (!sTaTe.equals(CONTROL_STATE.SCANNING)) 
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
 			
-		bOoK = lIbRaRy.gEt_BoOk(bOoKiD);
+		bOoK = lIbRaRy.getBook(bOoKiD);
 		if (bOoK == null) {
 			uI.DiSpLaY("Invalid bookId");
 			return;
@@ -76,8 +76,8 @@ public class bORROW_bOOK_cONTROL {
 		for (Book B : pEnDiNg_LiSt) 
 			uI.DiSpLaY(B.toString());
 		
-		if (lIbRaRy.gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
-			uI.DiSpLaY("Loan limit reached");
+		if (lIbRaRy.gEt_NuMbEr_Of_LoanS_ReMaInInG_FoR_MeMbEr(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
+			uI.DiSpLaY("loan limit reached");
 			CoMpLeTe();
 		}
 	}
@@ -99,17 +99,17 @@ public class bORROW_bOOK_cONTROL {
 	}
 
 
-	public void CoMmIt_LoAnS() {
+	public void CoMmIt_loanS() {
 		if (!sTaTe.equals(CONTROL_STATE.FINALISING)) 
-			throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
+			throw new RuntimeException("BorrowBookControl: cannot call commitloans except in FINALISING state");
 			
 		for (Book B : pEnDiNg_LiSt) {
-			Loan lOaN = lIbRaRy.iSsUe_LoAn(B, mEmBeR);
-			cOmPlEtEd_LiSt.add(lOaN);			
+			Loan loan = lIbRaRy.iSsUe_Loan(B, mEmBeR);
+			cOmPlEtEd_LiSt.add(loan);			
 		}
-		uI.DiSpLaY("Completed Loan Slip");
-		for (Loan LOAN : cOmPlEtEd_LiSt) 
-			uI.DiSpLaY(LOAN.toString());
+		uI.DiSpLaY("Completed loan Slip");
+		for (Loan loan : cOmPlEtEd_LiSt) 
+			uI.DiSpLaY(loan.toString());
 		
 		uI.SeT_StAtE(BorrowBookUI.uI_STaTe.COMPLETED);
 		sTaTe = CONTROL_STATE.COMPLETED;
