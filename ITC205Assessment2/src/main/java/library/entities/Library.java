@@ -47,14 +47,14 @@ public class Library implements Serializable {
         loanId = 1;
     }
 
-    public static synchronized Library GeTiNsTaNcE() {
+    public static synchronized Library getInstance() {
         if (self == null) {
-            Path PATH = Paths.get(LIBRARY_FILE);
-            if (Files.exists(PATH)) {
+            Path path = Paths.get(LIBRARY_FILE);
+            if (Files.exists(path)) {
                 try (ObjectInputStream libraryFile = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
 
                     self = (Library) libraryFile.readObject();
-                    Calendar.gEtInStAnCe().SeT_DaTe(self.loanDate);
+                    Calendar.getInstance().setDate(self.loanDate);
                     libraryFile.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -66,9 +66,9 @@ public class Library implements Serializable {
         return self;
     }
 
-    public static synchronized void SaVe() {
+    public static synchronized void saveLibrary() {
         if (self != null) {
-            self.loanDate = Calendar.gEtInStAnCe().gEt_DaTe();
+            self.loanDate = Calendar.getInstance().getDate();
             try (ObjectOutputStream libraryFile = new ObjectOutputStream(new FileOutputStream(LIBRARY_FILE));) {
                 libraryFile.writeObject(self);
                 libraryFile.flush();
@@ -79,79 +79,79 @@ public class Library implements Serializable {
         }
     }
 
-    public int gEt_BoOkId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public int gEt_MeMbEr_Id() {
+    public int getMemberId() {
         return memberId;
     }
 
-    private int gEt_NeXt_BoOk_Id() {
+    private int getNextBookID() {
         return bookId++;
     }
 
-    private int gEt_NeXt_MeMbEr_Id() {
+    private int getNextMemberId() {
         return memberId++;
     }
 
-    private int gEt_NeXt_LoAn_Id() {
+    private int getNextLoanId() {
         return loanId++;
     }
 
-    public List<Member> lIsT_MeMbErS() {
+    public List<Member> listMembers() {
         return new ArrayList<Member>(members.values());
     }
 
-    public List<Book> lIsT_BoOkS() {
+    public List<Book> listBooks() {
         return new ArrayList<Book>(catalog.values());
     }
 
-    public List<Loan> lISt_CuRrEnT_LoAnS() {
+    public List<Loan> listCurrentBooks() {
         return new ArrayList<Loan>(currentLoans.values());
     }
 
-    public Member aDd_MeMbEr(String lastName, String firstName, String email, int phoneNo) {
-        Member member = new Member(lastName, firstName, email, phoneNo, gEt_NeXt_MeMbEr_Id());
-        members.put(member.GeT_ID(), member);
+    public Member addMember(String lastName, String firstName, String email, int phoneNo) {
+        Member member = new Member(lastName, firstName, email, phoneNo, getNextMemberId());
+        members.put(member.getId(), member);
         return member;
     }
 
-    public Book aDd_BoOk(String a, String t, String c) {
-        Book book = new Book(a, t, c, gEt_NeXt_BoOk_Id());
-        catalog.put(book.gEtId(), book);
+    public Book addBook(String a, String t, String c) {
+        Book book = new Book(a, t, c, getNextBookID());
+        catalog.put(book.getId(), book);
         return book;
     }
 
-    public Member gEt_MeMbEr(int memberId) {
+    public Member getMember(int memberId) {
         if (members.containsKey(memberId)) {
             return members.get(memberId);
         }
         return null;
     }
 
-    public Book gEt_BoOk(int bookId) {
+    public Book getBook(int bookId) {
         if (catalog.containsKey(bookId)) {
             return catalog.get(bookId);
         }
         return null;
     }
 
-    public int gEt_LoAn_LiMiT() {
+    public int getLoanLimit() {
         return LOAN_LIMIT;
     }
 
-    public boolean cAn_MeMbEr_BoRrOw(Member member) {
-        if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == LOAN_LIMIT) {
+    public boolean canMemberBorrow(Member member) {
+        if (member.getNumberOfCurrentLoans() == LOAN_LIMIT) {
             return false;
         }
 
-        if (member.FiNeS_OwEd() >= MAX_FINES_OWED) {
+        if (member.finesOwed() >= MAX_FINES_OWED) {
             return false;
         }
 
-        for (Loan loan : member.GeT_LoAnS()) {
-            if (loan.Is_OvEr_DuE()) {
+        for (Loan loan : member.getLoans()) {
+            if (loan.isOverDue()) {
                 return false;
             }
         }
@@ -159,21 +159,21 @@ public class Library implements Serializable {
         return true;
     }
 
-    public int gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(Member member) {
-        return LOAN_LIMIT - member.gEt_nUmBeR_Of_CuRrEnT_LoAnS();
+    public int getNumberOfLoansRemainingForMember(Member member) {
+        return LOAN_LIMIT - member.getNumberOfCurrentLoans();
     }
 
-    public Loan iSsUe_LoAn(Book book, Member member) {
-        Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(LOAN_PERIOD);
-        Loan loan = new Loan(gEt_NeXt_LoAn_Id(), book, member, dueDate);
-        member.TaKe_OuT_LoAn(loan);
-        book.BoRrOw();
-        loans.put(loan.GeT_Id(), loan);
-        currentLoans.put(book.gEtId(), loan);
+    public Loan issueLoan(Book book, Member member) {
+        Date dueDate = Calendar.getInstance().getDueDate(LOAN_PERIOD);
+        Loan loan = new Loan(getNextLoanId(), book, member, dueDate);
+        member.takeOutLoan(loan);
+        book.borrow();
+        loans.put(loan.getId(), loan);
+        currentLoans.put(book.getId(), loan);
         return loan;
     }
 
-    public Loan GeT_LoAn_By_BoOkId(int bookId) {
+    public Loan getLoanByBookId(int bookId) {
         if (currentLoans.containsKey(bookId)) {
             return currentLoans.get(bookId);
         }
@@ -181,43 +181,43 @@ public class Library implements Serializable {
         return null;
     }
 
-    public double CaLcUlAtE_OvEr_DuE_FiNe(Loan loan) {
-        if (loan.Is_OvEr_DuE()) {
-            long daysOverDue = Calendar.gEtInStAnCe().GeT_DaYs_DiFfErEnCe(loan.GeT_DuE_DaTe());
+    public double calculateOverDueFine(Loan loan) {
+        if (loan.isOverDue()) {
+            long daysOverDue = Calendar.getInstance().getDaysDifference(loan.getDueDate());
             double fine = daysOverDue * FINE_PER_DAY;
             return fine;
         }
         return 0.0;
     }
 
-    public void DiScHaRgE_LoAn(Loan currentLoan, boolean isDamaged) {
-        Member member = currentLoan.GeT_MeMbEr();
-        Book book = currentLoan.GeT_BoOk();
+    public void dischargeLoan(Loan currentLoan, boolean isDamaged) {
+        Member member = currentLoan.getMember();
+        Book book = currentLoan.getBook();
 
-        double overDueFine = CaLcUlAtE_OvEr_DuE_FiNe(currentLoan);
-        member.AdD_FiNe(overDueFine);
+        double overDueFine = calculateOverDueFine(currentLoan);
+        member.addFine(overDueFine);
 
-        member.dIsChArGeLoAn(currentLoan);
-        book.ReTuRn(isDamaged);
+        member.dischargeLoan(currentLoan);
+        book.returnBook(isDamaged);
         if (isDamaged) {
-            member.AdD_FiNe(DAMAGE_FEE);
-            damagedBooks.put(book.gEtId(), book);
+            member.addFine(DAMAGE_FEE);
+            damagedBooks.put(book.getId(), book);
         }
-        currentLoan.DiScHaRgE();
-        currentLoans.remove(book.gEtId());
+        currentLoan.discharge();
+        currentLoans.remove(book.getId());
     }
 
-    public void cHeCk_CuRrEnT_LoAnS() {
+    public void checkCurrentLoans() {
         for (Loan loan : currentLoans.values()) {
-            loan.cHeCk_OvEr_DuE();
+            loan.checkOverDue();
         }
 
     }
 
-    public void RePaIr_BoOk(Book currentBook) {
-        if (damagedBooks.containsKey(currentBook.gEtId())) {
-            currentBook.RePaIr();
-            damagedBooks.remove(currentBook.gEtId());
+    public void repairBook(Book currentBook) {
+        if (damagedBooks.containsKey(currentBook.getId())) {
+            currentBook.repair();
+            damagedBooks.remove(currentBook.getId());
         } else {
             throw new RuntimeException("Library: repairBook: book is not damaged");
         }
