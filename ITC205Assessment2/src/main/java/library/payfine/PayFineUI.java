@@ -39,8 +39,8 @@ public class PayFineUI {
 					break;
 				}
 				try {
-					int memberId = Integer.valueOf(Mem_Str).intValue();
-					CoNtRoL.CaRd_sWiPeD(memberId);
+					int Member_ID = Integer.valueOf(Mem_Str).intValue();
+					CoNtRoL.CaRd_sWiPeD(Member_ID);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid memberId");
@@ -48,21 +48,21 @@ public class PayFineUI {
 				break;
 				
 			case PAYING:
-				double amount = 0;
+				double AmouNT = 0;
 				String Amt_Str = input("Enter amount (<Enter> cancels) : ");
 				if (Amt_Str.length() == 0) {
 					CoNtRoL.CaNcEl();
 					break;
 				}
 				try {
-					amount = Double.valueOf(Amt_Str).doubleValue();
+					AmouNT = Double.valueOf(Amt_Str).doubleValue();
 				}
 				catch (NumberFormatException e) {}
-				if (amount <= 0) {
-					output("amount must be positive");
+				if (AmouNT <= 0) {
+					output("Amount must be positive");
 					break;
 				}
-				CoNtRoL.PaY_FiNe(amount);
+				CoNtRoL.PaY_FiNe(AmouNT);
 				break;
 								
 			case CANCELLED:

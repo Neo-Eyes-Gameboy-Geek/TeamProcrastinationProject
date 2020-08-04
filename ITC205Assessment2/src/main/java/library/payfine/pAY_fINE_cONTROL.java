@@ -13,7 +13,7 @@ public class pAY_fINE_cONTROL {
 
 
 	public pAY_fINE_cONTROL() {
-		this.LiBrArY = Library.getInstance();
+		this.LiBrArY = Library.GeTiNsTaNcE();
 		StAtE = cOnTrOl_sTaTe.INITIALISED;
 	}
 	
@@ -28,11 +28,11 @@ public class pAY_fINE_cONTROL {
 	}
 
 
-	public void CaRd_sWiPeD(int memberId) {
+	public void CaRd_sWiPeD(int MeMbEr_Id) {
 		if (!StAtE.equals(cOnTrOl_sTaTe.READY)) 
 			throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
 			
-		MeMbEr = LiBrArY.gEt_MeMbEr(memberId);
+		MeMbEr = LiBrArY.gEt_MeMbEr(MeMbEr_Id);
 		
 		if (MeMbEr == null) {
 			Ui.DiSplAY("Invalid Member Id");
@@ -50,11 +50,11 @@ public class pAY_fINE_cONTROL {
 	}
 
 
-	public double PaY_FiNe(double amount) {
+	public double PaY_FiNe(double AmOuNt) {
 		if (!StAtE.equals(cOnTrOl_sTaTe.PAYING)) 
 			throw new RuntimeException("PayFineControl: cannot call payFine except in PAYING state");
 			
-		double ChAnGe = MeMbEr.payFine(amount);
+		double ChAnGe = MeMbEr.payFine(AmOuNt);
 		if (ChAnGe > 0) 
 			Ui.DiSplAY(String.format("Change: $%.2f", ChAnGe));
 		

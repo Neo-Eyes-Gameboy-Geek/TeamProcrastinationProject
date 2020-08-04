@@ -13,7 +13,7 @@ public class fIX_bOOK_cONTROL {
 
 
 	public fIX_bOOK_cONTROL() {
-		this.LiBrArY = Library.getInstance();
+		this.LiBrArY = Library.GeTiNsTaNcE();
 		StAtE = CoNtRoL_StAtE.INITIALISED;
 	}
 	

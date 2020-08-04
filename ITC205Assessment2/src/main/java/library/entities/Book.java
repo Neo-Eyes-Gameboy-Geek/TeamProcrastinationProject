@@ -10,7 +10,7 @@ public class Book implements Serializable {
 	private String CALLNO;
 	private int iD;
 	
-	private enum sTaTe { AVAILABLE, ON_loan, DAMAGED, RESERVED };
+	private enum sTaTe { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
 	private sTaTe StAtE;
 	
 	
@@ -33,7 +33,7 @@ public class Book implements Serializable {
 		return sb.toString();
 	}
 
-	public Integer getId() {
+	public Integer gEtId() {
 		return iD;
 	}
 
@@ -48,8 +48,8 @@ public class Book implements Serializable {
 	}
 
 	
-	public boolean iS_On_loan() {
-		return StAtE == sTaTe.ON_loan;
+	public boolean iS_On_LoAn() {
+		return StAtE == sTaTe.ON_LOAN;
 	}
 
 	
@@ -60,7 +60,7 @@ public class Book implements Serializable {
 	
 	public void BoRrOw() {
 		if (StAtE.equals(sTaTe.AVAILABLE)) 
-			StAtE = sTaTe.ON_loan;
+			StAtE = sTaTe.ON_LOAN;
 		
 		else 
 			throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", StAtE));
@@ -70,7 +70,7 @@ public class Book implements Serializable {
 
 
 	public void ReTuRn(boolean DaMaGeD) {
-		if (StAtE.equals(sTaTe.ON_loan)) 
+		if (StAtE.equals(sTaTe.ON_LOAN)) 
 			if (DaMaGeD) 
 				StAtE = sTaTe.DAMAGED;
 			

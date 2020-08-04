@@ -22,7 +22,7 @@ public class bORROW_bOOK_cONTROL {
 	
 	
 	public bORROW_bOOK_cONTROL() {
-		this.lIbRaRy = Library.getInstance();
+		this.lIbRaRy = Library.GeTiNsTaNcE();
 		sTaTe = CONTROL_STATE.INITIALISED;
 	}
 	
@@ -37,11 +37,11 @@ public class bORROW_bOOK_cONTROL {
 	}
 
 		
-	public void SwIpEd(int memberId) {
+	public void SwIpEd(int mEmBeR_Id) {
 		if (!sTaTe.equals(CONTROL_STATE.READY)) 
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 			
-		mEmBeR = lIbRaRy.gEt_MeMbEr(memberId);
+		mEmBeR = lIbRaRy.gEt_MeMbEr(mEmBeR_Id);
 		if (mEmBeR == null) {
 			uI.DiSpLaY("Invalid memberId");
 			return;
@@ -77,7 +77,7 @@ public class bORROW_bOOK_cONTROL {
 			uI.DiSpLaY(B.toString());
 		
 		if (lIbRaRy.gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
-			uI.DiSpLaY("loan limit reached");
+			uI.DiSpLaY("Loan limit reached");
 			CoMpLeTe();
 		}
 	}
@@ -99,17 +99,17 @@ public class bORROW_bOOK_cONTROL {
 	}
 
 
-	public void CoMmIt_loanS() {
+	public void CoMmIt_LoAnS() {
 		if (!sTaTe.equals(CONTROL_STATE.FINALISING)) 
-			throw new RuntimeException("BorrowBookControl: cannot call commitloans except in FINALISING state");
+			throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
 			
 		for (Book B : pEnDiNg_LiSt) {
-			Loan loan = lIbRaRy.iSsUe_LoAn(B, mEmBeR);
-			cOmPlEtEd_LiSt.add(loan);			
+			Loan lOaN = lIbRaRy.iSsUe_LoAn(B, mEmBeR);
+			cOmPlEtEd_LiSt.add(lOaN);			
 		}
-		uI.DiSpLaY("Completed loan Slip");
-		for (Loan loan : cOmPlEtEd_LiSt) 
-			uI.DiSpLaY(loan.toString());
+		uI.DiSpLaY("Completed Loan Slip");
+		for (Loan LOAN : cOmPlEtEd_LiSt) 
+			uI.DiSpLaY(LOAN.toString());
 		
 		uI.SeT_StAtE(BorrowBookUI.uI_STaTe.COMPLETED);
 		sTaTe = CONTROL_STATE.COMPLETED;

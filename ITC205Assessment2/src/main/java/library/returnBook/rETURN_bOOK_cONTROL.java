@@ -14,7 +14,7 @@ public class rETURN_bOOK_cONTROL {
 	
 
 	public rETURN_bOOK_cONTROL() {
-		this.lIbRaRy = Library.getInstance();
+		this.lIbRaRy = Library.GeTiNsTaNcE();
 		sTaTe = cOnTrOl_sTaTe.INITIALISED;
 	}
 	
@@ -39,21 +39,21 @@ public class rETURN_bOOK_cONTROL {
 			Ui.DiSpLaY("Invalid Book Id");
 			return;
 		}
-		if (!cUrReNt_bOoK.iS_On_loan()) {
+		if (!cUrReNt_bOoK.iS_On_LoAn()) {
 			Ui.DiSpLaY("Book has not been borrowed");
 			return;
 		}		
-		CurrENT_loan = lIbRaRy.GeT_Loan_By_BoOkId(bOoK_iD);	
-		double OVERDUE_Fine = 0.0;
-		if (CurrENT_loan.isOverdue()) 
-			OVERDUE_Fine = lIbRaRy.CaLcUlAtE_OvEr_DuE_FiNe(CurrENT_loan);
+		CurrENT_loan = lIbRaRy.GeT_LoAn_By_BoOkId(bOoK_iD);	
+		double Over_Due_Fine = 0.0;
+		if (CurrENT_loan.Is_OvEr_DuE()) 
+			Over_Due_Fine = lIbRaRy.CaLcUlAtE_OvEr_DuE_FiNe(CurrENT_loan);
 		
 		Ui.DiSpLaY("Inspecting");
 		Ui.DiSpLaY(cUrReNt_bOoK.toString());
 		Ui.DiSpLaY(CurrENT_loan.toString());
 		
-		if (CurrENT_loan.isOverdue()) 
-			Ui.DiSpLaY(String.format("\nOverdue fine : $%.2f", OVERDUE_Fine));
+		if (CurrENT_loan.Is_OvEr_DuE()) 
+			Ui.DiSpLaY(String.format("\nOverdue fine : $%.2f", Over_Due_Fine));
 		
 		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.INSPECTING);
 		sTaTe = cOnTrOl_sTaTe.INSPECTING;		
@@ -68,9 +68,9 @@ public class rETURN_bOOK_cONTROL {
 	}
 
 
-	public void dIsChArGe_loan(boolean iS_dAmAgEd) {
+	public void dIsChArGe_lOaN(boolean iS_dAmAgEd) {
 		if (!sTaTe.equals(cOnTrOl_sTaTe.INSPECTING)) 
-			throw new RuntimeException("ReturnBookControl: cannot call dischargeLoanloan except in INSPECTING state");
+			throw new RuntimeException("ReturnBookControl: cannot call dischargeLoan except in INSPECTING state");
 		
 		lIbRaRy.DiScHaRgE_LoAn(CurrENT_loan, iS_dAmAgEd);
 		CurrENT_loan = null;
