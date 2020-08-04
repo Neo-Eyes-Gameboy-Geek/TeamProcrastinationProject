@@ -35,6 +35,7 @@ public class Calendar {
 			throw new RuntimeException(e);
 		}	
 	}
+
 	public synchronized Date gEt_DaTe() {
 		try {
 	        cAlEnDaR.set(java.util.Calendar.HOUR_OF_DAY, 0);  
