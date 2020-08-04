@@ -143,7 +143,7 @@ public class Main {
 
 	private static void LIST_CURRENT_LOANS() {
 		output("");
-		for (Loan loan : LIB.listCurrentBooks()) {
+		for (Loan loan : LIB.listCurrentLoans()) {
 			output(loan + "\n");
 		}		
 	}
