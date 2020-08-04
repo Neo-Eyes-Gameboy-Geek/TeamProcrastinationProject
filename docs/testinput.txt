@@ -1,0 +1,46 @@
+Input Chain
+LM --> Outputs Nothing, returns to menu
+M
+Smith
+John
+Smith@smitch.com
+123
+
+LM --> should show john as just added
+
+B
+Jane Doe
+How To Read
+12345
+
+LB
+--> should show book details
+
+L
+1
+1
+Enter
+Y
+--> Should show completed loan slip 
+
+LM --> Shows John with a loan
+
+R
+1
+Y
+
+LM --> John with $2 fine owing
+
+P
+1
+2.00 --> should show loan payment complete
+
+FB
+1
+Y
+Enter
+
+LB
+--> How to read should now be availble 
+
+Q
