@@ -66,7 +66,6 @@ public class Member implements Serializable {
 	}
 
 	
-
 	public void TaKe_OuT_LoAn(Loan lOaN) {
 		if (!cUrReNt_lOaNs.containsKey(lOaN.GeT_Id())) 
 			cUrReNt_lOaNs.put(lOaN.GeT_Id(), lOaN);
@@ -105,7 +104,6 @@ public class Member implements Serializable {
 		
 		return change;
 	}
-
 
 
 	public void dIsChArGeLoAn(Loan LoAn) {
