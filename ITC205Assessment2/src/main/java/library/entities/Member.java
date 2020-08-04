@@ -46,29 +46,30 @@ public class Member implements Serializable {
 	}
 
 	
-	public int getId() {
+	public int GeT_ID() {
 		return MeMbEr_Id;
 	}
 
 	
-	public List<Loan> getLoans() {
+	public List<Loan> GeT_LoAnS() {
 		return new ArrayList<Loan>(cUrReNt_lOaNs.values());
 	}
 
 	
-	public int getNumberOfCurrentLoans() {
+	public int gEt_nUmBeR_Of_CuRrEnT_LoAnS() {
 		return cUrReNt_lOaNs.size();
 	}
 
 	
-	public double finesOwed() {
+	public double FiNeS_OwEd() {
 		return FiNeS_OwInG;
 	}
 
 	
-	public void takeOutLoan(Loan lOaN) {
-		if (!cUrReNt_lOaNs.containsKey(lOaN.getId())) 
-			cUrReNt_lOaNs.put(lOaN.getId(), lOaN);
+
+	public void TaKe_OuT_LoAn(Loan lOaN) {
+		if (!cUrReNt_lOaNs.containsKey(lOaN.GeT_Id())) 
+			cUrReNt_lOaNs.put(lOaN.GeT_Id(), lOaN);
 		
 		else 
 			throw new RuntimeException("Duplicate loan added to member");
@@ -86,7 +87,7 @@ public class Member implements Serializable {
 	}
 
 
-	public void addFine(double fine) {
+	public void AdD_FiNe(double fine) {
 		FiNeS_OwInG += fine;
 	}
 	
@@ -106,9 +107,10 @@ public class Member implements Serializable {
 	}
 
 
-	public void dischargeLoan(Loan LoAn) {
-		if (cUrReNt_lOaNs.containsKey(LoAn.getId())) 
-			cUrReNt_lOaNs.remove(LoAn.getId());
+
+	public void dIsChArGeLoAn(Loan LoAn) {
+		if (cUrReNt_lOaNs.containsKey(LoAn.GeT_Id())) 
+			cUrReNt_lOaNs.remove(LoAn.GeT_Id());
 		
 		else 
 			throw new RuntimeException("No such loan held by member");
