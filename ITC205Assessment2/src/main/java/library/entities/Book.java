@@ -63,9 +63,9 @@ public class Book implements Serializable {
 
     }
 
-    public void returnBook(boolean DaMaGeD) {
+    public void returnBook(boolean damaged) {
         if (state.equals(State.ON_LOAN)) {
-            if (DaMaGeD) {
+            if (damaged) {
                 state = State.DAMAGED;
             } else {
                 state = State.AVAILABLE;
