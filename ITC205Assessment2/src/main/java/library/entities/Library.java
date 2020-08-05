@@ -122,7 +122,7 @@ public class Library implements Serializable {
     public Book addBook(String author, String title, String callNumber) {
         int nextId = getNextBookId();
         Book book = new Book(author, title, callNumber, nextId);
-        int bookId = book.gEtId();
+        int bookId = book.getId();
         catalog.put(bookId, book);
         return book;
     }
@@ -172,10 +172,10 @@ public class Library implements Serializable {
         int nextId = getNextLoanId();
         Loan loan = new Loan(nextId, book, member, dueDate);
         member.TaKe_OuT_LoAn(loan);
-        book.BoRrOw();
+        book.borrowBook();
         int loanId = loan.getId();
         loans.put(loanId, loan);
-        int bookId = book.gEtId();
+        int bookId = book.getId();
         currentLoans.put(bookId, loan);
         return loan;
     }
@@ -206,14 +206,14 @@ public class Library implements Serializable {
         member.AdD_FiNe(overDueFine);
 
         member.dIsChArGeLoAn(currentLoan);
-        book.ReTuRn(isDamaged);
+        book.returnBook(isDamaged);
         if (isDamaged) {
             member.AdD_FiNe(DAMAGE_FEE);
-            int damagedBookId = book.gEtId();
+            int damagedBookId = book.getId();
             damagedBooks.put(damagedBookId, book);
         }
         currentLoan.dischargeLoan();
-        int bookId = book.gEtId();
+        int bookId = book.getId();
         currentLoans.remove(bookId);
     }
 
@@ -225,9 +225,9 @@ public class Library implements Serializable {
     }
 
     public void repairBook(Book currentBook) {
-        int bookId = currentBook.gEtId();
+        int bookId = currentBook.getId();
         if (damagedBooks.containsKey(bookId)) {
-            currentBook.RePaIr();
+                currentBook.repairBook();
             damagedBooks.remove(bookId);
         } else {
             throw new RuntimeException("Library: repairBook: book is not damaged");
