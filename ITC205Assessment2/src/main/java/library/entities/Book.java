@@ -22,7 +22,7 @@ public class Book implements Serializable {
         this.id = id;
         this.state = State.AVAILABLE;
     }
-//does this fix github playing up?
+
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Book: ").append(id).append("\n")
