@@ -47,17 +47,17 @@ public class Loan implements Serializable {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Loan:  ").append(loanId).append("\n")
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Loan:  ").append(loanId).append("\n")
                 .append("  Borrower ").append(member.GeT_ID()).append(" : ")
                 .append(member.GeT_LaSt_NaMe()).append(", ").append(member.GeT_FiRsT_NaMe()).append("\n")
                 .append("  Book ").append(book.gEtId()).append(" : ")
                 .append(book.gEtTiTlE()).append("\n")
-                .append("  DueDate: ").append(sdf.format(date)).append("\n")
+                .append("  DueDate: ").append(simpleDateFormat.format(date)).append("\n")
                 .append("  State: ").append(state);
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
     public Member getMember() {
