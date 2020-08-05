@@ -155,7 +155,7 @@ public class Library implements Serializable {
         }
 
         for (Loan loan : member.GeT_LoAnS()) {
-            if (loan.Is_OvEr_DuE()) {
+            if (loan.isBookOverdue()) {
                 return false;
             }
         }
@@ -173,7 +173,7 @@ public class Library implements Serializable {
         Loan loan = new Loan(nextId, book, member, dueDate);
         member.TaKe_OuT_LoAn(loan);
         book.borrowBook();
-        int loanId = loan.GeT_Id();
+        int loanId = loan.getId();
         loans.put(loanId, loan);
         int bookId = book.getId();
         currentLoans.put(bookId, loan);
@@ -189,8 +189,8 @@ public class Library implements Serializable {
     }
 
     public double calculateOverDueFine(Loan loan) {
-        if (loan.Is_OvEr_DuE()) {
-            Date dueDate = loan.GeT_DuE_DaTe();
+        if (loan.isBookOverdue()) {
+            Date dueDate = loan.getDueDate();
             long daysOverDue = Calendar.gEtInStAnCe().GeT_DaYs_DiFfErEnCe(dueDate);
             double fine = daysOverDue * FINE_PER_DAY;
             return fine;
@@ -199,8 +199,8 @@ public class Library implements Serializable {
     }
 
     public void dischargeLoan(Loan currentLoan, boolean isDamaged) {
-        Member member = currentLoan.GeT_MeMbEr();
-        Book book = currentLoan.GeT_BoOk();
+        Member member = currentLoan.getMember();
+        Book book = currentLoan.getBook();
 
         double overDueFine = calculateOverDueFine(currentLoan);
         member.AdD_FiNe(overDueFine);
@@ -212,14 +212,14 @@ public class Library implements Serializable {
             int damagedBookId = book.getId();
             damagedBooks.put(damagedBookId, book);
         }
-        currentLoan.DiScHaRgE();
+        currentLoan.dischargeLoan();
         int bookId = book.getId();
         currentLoans.remove(bookId);
     }
 
     public void checkCurrentLoans() {
         for (Loan loan : currentLoans.values()) {
-            loan.cHeCk_OvEr_DuE();
+            loan.checkOverDue();
         }
 
     }
