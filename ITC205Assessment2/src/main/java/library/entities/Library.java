@@ -1,5 +1,6 @@
-package library.entities;
+package main.java.library.entities;
 
+import main.java.library.entities.Member;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;

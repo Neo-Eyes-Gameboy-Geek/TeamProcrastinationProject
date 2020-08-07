@@ -1,4 +1,4 @@
-package library.borrowbook;
+package main.java.library.borrowbook;
 import java.util.Scanner;
 
 
