@@ -62,8 +62,10 @@ public class Member implements Serializable {
     }
 
     public void takeOutLoan(Loan loan) {
-        if (!currentNames.containsKey(loan.getId())) {
-            currentNames.put(loan.getId(), loan);
+        int loadId = loan.getId();
+        if (!currentNames.containsKey(loadId)) {
+            loadId = loan.getId();
+            currentNames.put(loadId, loan);
         } else {
             throw new RuntimeException("Duplicate loan added to member");
         }
@@ -98,8 +100,10 @@ public class Member implements Serializable {
     }
 
     public void dischargeLoan(Loan loan) {
-        if (currentNames.containsKey(loan.getId())) {
-            currentNames.remove(loan.getId());
+        int loadId = loan.getId();
+        if (currentNames.containsKey(loadId)) {
+            loadId = loan.getId();
+            currentNames.remove(loadId);
         } else {
             throw new RuntimeException("No such loan held by member");
         }
