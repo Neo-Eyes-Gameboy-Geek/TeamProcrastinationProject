@@ -1,11 +1,11 @@
-package main.java.library.entities;
+package library.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import main.java.library.entities.Loan;
+import library.entities.Loan;
 
 @SuppressWarnings("serial")
 public class Member implements Serializable {

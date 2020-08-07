@@ -1,21 +1,21 @@
-package main.java.library;
+package library;
 
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
-import main.java.library.borrowbook.BorrowBookUI;
-import main.java.library.borrowbook.bORROW_bOOK_cONTROL;
-import main.java.library.entities.Book;
-import main.java.library.entities.Calendar;
-import main.java.library.entities.Library;
-import main.java.library.entities.Loan;
-import main.java.library.entities.Member;
-import main.java.library.fixbook.FixBookUI;
-import main.java.library.fixbook.fIX_bOOK_cONTROL;
-import main.java.library.payfine.PayFineUI;
-import main.java.library.payfine.pAY_fINE_cONTROL;
-import main.java.library.returnBook.ReturnBookUI;
-import main.java.library.returnBook.rETURN_bOOK_cONTROL;
+import library.borrowbook.BorrowBookUI;
+import library.borrowbook.bORROW_bOOK_cONTROL;
+import library.entities.Book;
+import library.entities.Calendar;
+import library.entities.Library;
+import library.entities.Loan;
+import library.entities.Member;
+import library.fixbook.FixBookUI;
+import library.fixbook.fIX_bOOK_cONTROL;
+import library.payfine.PayFineUI;
+import library.payfine.pAY_fINE_cONTROL;
+import library.returnBook.ReturnBookUI;
+import library.returnBook.rETURN_bOOK_cONTROL;
 
 public class Main {
 
@@ -54,7 +54,7 @@ public class Main {
         try {
             IN = new Scanner(System.in);
             LIB = Library.getInstance();
-            CAL = Calendar.gEtInStAnCe();
+            CAL = Calendar.getCalendarInstance();
             SDF = new SimpleDateFormat("dd/MM/yyyy");
 
             for (Member m : LIB.listMembers()) {
@@ -71,7 +71,7 @@ public class Main {
 
             while (!e) {
 
-                output("\n" + SDF.format(CAL.gEt_DaTe()));
+                output("\n" + SDF.format(CAL.getDate()));
                 String c = input(MENU);
 
                 switch (c.toUpperCase()) {
@@ -175,7 +175,7 @@ public class Main {
             int days = Integer.valueOf(input("Enter number of days: ")).intValue();
             CAL.incrementDate(days);
             LIB.checkCurrentLoans();
-            output(SDF.format(CAL.gEt_DaTe()));
+            output(SDF.format(CAL.getDate()));
 
         } catch (NumberFormatException e) {
             output("\nInvalid number of days\n");

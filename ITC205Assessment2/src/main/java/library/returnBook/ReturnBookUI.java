@@ -1,4 +1,4 @@
-package main.java.library.returnBook;
+package library.returnBook;
 import java.util.Scanner;
 
 

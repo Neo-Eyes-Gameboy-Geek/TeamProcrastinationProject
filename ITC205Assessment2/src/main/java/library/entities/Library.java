@@ -1,6 +1,6 @@
-package main.java.library.entities;
+package library.entities;
 
-import main.java.library.entities.Member;
+import library.entities.Member;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -55,7 +55,7 @@ public class Library implements Serializable {
                 try (ObjectInputStream libraryFile = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
 
                     self = (Library) libraryFile.readObject();
-                    Calendar.gEtInStAnCe().SeT_DaTe(self.loanDate);
+                    Calendar.getCalendarInstance().setDate(self.loanDate);
                     libraryFile.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -69,7 +69,7 @@ public class Library implements Serializable {
 
     public static synchronized void saveLibrary() {
         if (self != null) {
-            self.loanDate = Calendar.gEtInStAnCe().gEt_DaTe();
+            self.loanDate = Calendar.getCalendarInstance().getDate();
             try (ObjectOutputStream libraryFile = new ObjectOutputStream(new FileOutputStream(LIBRARY_FILE));) {
                 libraryFile.writeObject(self);
                 libraryFile.flush();
@@ -169,7 +169,7 @@ public class Library implements Serializable {
     }
 
     public Loan issueLoan(Book book, Member member) {
-        Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(LOAN_PERIOD);
+        Date dueDate = Calendar.getCalendarInstance().getDueDate(LOAN_PERIOD);
         int nextId = getNextLoanId();
         Loan loan = new Loan(nextId, book, member, dueDate);
         member.takeOutLoan(loan);
@@ -192,7 +192,7 @@ public class Library implements Serializable {
     public double calculateOverDueFine(Loan loan) {
         if (loan.isBookOverdue()) {
             Date dueDate = loan.getDueDate();
-            long daysOverDue = Calendar.gEtInStAnCe().GeT_DaYs_DiFfErEnCe(dueDate);
+            long daysOverDue = Calendar.getCalendarInstance().getDaysDifference(dueDate);
             double fine = daysOverDue * FINE_PER_DAY;
             return fine;
         }
