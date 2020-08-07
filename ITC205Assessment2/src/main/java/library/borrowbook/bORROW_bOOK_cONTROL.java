@@ -1,11 +1,11 @@
-package library.borrowbook;
+package main.java.library.borrowbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import library.entities.Book;
-import library.entities.Library;
-import library.entities.Loan;
-import library.entities.Member;
+import main.java.library.entities.Book;
+import main.java.library.entities.Library;
+import main.java.library.entities.Loan;
+import main.java.library.entities.Member;
 
 public class bORROW_bOOK_cONTROL {
 	

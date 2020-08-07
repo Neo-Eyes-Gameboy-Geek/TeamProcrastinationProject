@@ -1,4 +1,4 @@
-package library.payfine;
+package main.java.library.payfine;
 import java.util.Scanner;
 
 

@@ -1,4 +1,4 @@
-package library.fixbook;
+package main.java.library.fixbook;
 import java.util.Scanner;
 
 

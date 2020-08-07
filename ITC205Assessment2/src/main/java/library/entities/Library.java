@@ -1,5 +1,6 @@
-package library.entities;
+package main.java.library.entities;
 
+import main.java.library.entities.Member;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -114,7 +115,7 @@ public class Library implements Serializable {
     public Member addMember(String lastName, String firstName, String email, int phoneNo) {
         int nextId = getNextMemberId();
         Member member = new Member(lastName, firstName, email, phoneNo, nextId);
-        int memberId = member.GeT_ID();
+        int memberId = member.getId();
         members.put(memberId, member);
         return member;
     }
@@ -146,15 +147,15 @@ public class Library implements Serializable {
     }
 
     public boolean canMemberBorrow(Member member) {
-        if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == LOAN_LIMIT) {
+        if (member.getNumberOfCurrentLoans()== LOAN_LIMIT) {
             return false;
         }
 
-        if (member.FiNeS_OwEd() >= MAX_FINES_OWED) {
+        if (member.finesOwed()>= MAX_FINES_OWED) {
             return false;
         }
 
-        for (Loan loan : member.GeT_LoAnS()) {
+        for (Loan loan : member.getLoans()) {
             if (loan.isBookOverdue()) {
                 return false;
             }
@@ -164,14 +165,14 @@ public class Library implements Serializable {
     }
 
     public int getNumberOfLoansRemainingForMember(Member member) {
-        return LOAN_LIMIT - member.gEt_nUmBeR_Of_CuRrEnT_LoAnS();
+        return LOAN_LIMIT - member.getNumberOfCurrentLoans();
     }
 
     public Loan issueLoan(Book book, Member member) {
         Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(LOAN_PERIOD);
         int nextId = getNextLoanId();
         Loan loan = new Loan(nextId, book, member, dueDate);
-        member.TaKe_OuT_LoAn(loan);
+        member.takeOutLoan(loan);
         book.borrowBook();
         int loanId = loan.getId();
         loans.put(loanId, loan);
@@ -203,12 +204,12 @@ public class Library implements Serializable {
         Book book = currentLoan.getBook();
 
         double overDueFine = calculateOverDueFine(currentLoan);
-        member.AdD_FiNe(overDueFine);
+        member.addFine(overDueFine);
 
-        member.dIsChArGeLoAn(currentLoan);
+        member.dischargeLoan(currentLoan);
         book.returnBook(isDamaged);
         if (isDamaged) {
-            member.AdD_FiNe(DAMAGE_FEE);
+            member.addFine(DAMAGE_FEE);
             int damagedBookId = book.getId();
             damagedBooks.put(damagedBookId, book);
         }
@@ -234,5 +235,4 @@ public class Library implements Serializable {
         }
 
     }
-
 }

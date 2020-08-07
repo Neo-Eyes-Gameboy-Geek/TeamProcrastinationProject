@@ -1,2 +1,2 @@
 # TeamProcrastinationProject
-Repository for the Professional Programming Practice project for team procrastination
+Repository for the Professional Programming Practice project for team procrastination.
