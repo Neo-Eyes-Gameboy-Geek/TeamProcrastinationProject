@@ -1,5 +1,6 @@
-package library.entities;
+package main.java.library.entities;
 
+import main.java.library.entities.Member;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,8 +51,8 @@ public class Loan implements Serializable {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Loan:  ").append(loanId).append("\n")
-                .append("  Borrower ").append(member.GeT_ID()).append(" : ")
-                .append(member.GeT_LaSt_NaMe()).append(", ").append(member.GeT_FiRsT_NaMe()).append("\n")
+                .append("  Borrower ").append(member.getId()).append(" : ")
+                .append(member.getLastName()).append(", ").append(member.getFirstName()).append("\n")
                 .append("  Book ").append(book.getId()).append(" : ")
                 .append(book.getTitle()).append("\n")
                 .append("  DueDate: ").append(simpleDateFormat.format(date)).append("\n")

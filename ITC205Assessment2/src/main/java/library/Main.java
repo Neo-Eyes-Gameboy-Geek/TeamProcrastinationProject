@@ -1,8 +1,9 @@
-package library;
+package main.java.library;
 
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+<<<<<<< HEAD
 import library.borrowbook.BorrowBookUI;
 import library.borrowbook.bORROW_bOOK_cONTROL;
 import library.entities.Book;
@@ -17,6 +18,22 @@ import library.payfine.pAY_fINE_cONTROL;
 import library.returnBook.ReturnBookUI;
 import library.returnBook.rETURN_bOOK_cONTROL;
 	
+=======
+import main.java.library.borrowbook.BorrowBookUI;
+import main.java.library.borrowbook.bORROW_bOOK_cONTROL;
+import main.java.library.entities.Book;
+import main.java.library.entities.Calendar;
+import main.java.library.entities.Library;
+import main.java.library.entities.Loan;
+import main.java.library.entities.Member;
+import main.java.library.fixbook.FixBookUI;
+import main.java.library.fixbook.fIX_bOOK_cONTROL;
+import main.java.library.payfine.PayFineUI;
+import main.java.library.payfine.pAY_fINE_cONTROL;
+import main.java.library.returnBook.ReturnBookUI;
+import main.java.library.returnBook.rETURN_bOOK_cONTROL;
+
+>>>>>>> master
 public class Main {
 
     private static Scanner IN;
