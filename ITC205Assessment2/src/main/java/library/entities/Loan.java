@@ -1,6 +1,6 @@
-package main.java.library.entities;
+package library.entities;
 
-import main.java.library.entities.Member;
+import library.entities.Member;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;

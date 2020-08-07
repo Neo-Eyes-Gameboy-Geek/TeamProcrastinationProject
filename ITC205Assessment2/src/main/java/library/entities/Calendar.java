@@ -1,4 +1,4 @@
-package main.java.library.entities;
+package library.entities;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 

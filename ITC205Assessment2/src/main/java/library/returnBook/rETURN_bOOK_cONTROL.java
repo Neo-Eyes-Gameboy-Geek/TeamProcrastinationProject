@@ -1,7 +1,7 @@
-package main.java.library.returnBook;
-import main.java.library.entities.Book;
-import main.java.library.entities.Library;
-import main.java.library.entities.Loan;
+package library.returnBook;
+import library.entities.Book;
+import library.entities.Library;
+import library.entities.Loan;
 
 public class rETURN_bOOK_cONTROL {
 

@@ -1,6 +1,6 @@
-package main.java.library.entities;
+package library.entities;
 
-import main.java.library.entities.Member;
+import library.entities.Member;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -17,7 +17,6 @@ import java.util.Map;
 
 @SuppressWarnings("serial")
 public class Library implements Serializable {
-
 
     private static final String LIBRARY_FILE = "library.obj";
     private static final int LOAN_LIMIT = 2;
