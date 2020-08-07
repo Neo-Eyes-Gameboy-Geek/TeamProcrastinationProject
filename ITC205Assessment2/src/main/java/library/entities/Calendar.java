@@ -1,4 +1,4 @@
-package library.entities;
+package main.java.library.entities;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +35,7 @@ public class Calendar {
 			throw new RuntimeException(e);
 		}	
 	}
+
 	public synchronized Date getDate() {
 		try {
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
