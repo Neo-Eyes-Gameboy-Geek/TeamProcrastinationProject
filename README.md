@@ -1,2 +1,2 @@
 # TeamProcrastinationProject
-Alain's Member Branch.
+Repository for the Professional Programming Practice project for team procrastination.
