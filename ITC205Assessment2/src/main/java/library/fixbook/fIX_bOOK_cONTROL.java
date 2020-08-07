@@ -1,6 +1,6 @@
-package main.java.library.fixbook;
-import main.java.library.entities.Book;
-import main.java.library.entities.Library;
+package library.fixbook;
+import library.entities.Book;
+import library.entities.Library;
 
 public class fIX_bOOK_cONTROL {
 	

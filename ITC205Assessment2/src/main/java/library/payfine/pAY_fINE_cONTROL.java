@@ -1,6 +1,6 @@
-package main.java.library.payfine;
-import main.java.library.entities.Library;
-import main.java.library.entities.Member;
+package library.payfine;
+import library.entities.Library;
+import library.entities.Member;
 
 public class pAY_fINE_cONTROL {
 	

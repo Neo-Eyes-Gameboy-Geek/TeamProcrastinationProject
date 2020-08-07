@@ -1,4 +1,4 @@
-package main.java.library.entities;
+package library.entities;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -25,11 +25,15 @@ public class Calendar {
 	
 	public synchronized void setDate(Date date) {
 		try {
-			calendar.setTime(date);
-	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
-	        calendar.set(java.util.Calendar.MINUTE, 0);  
-	        calendar.set(java.util.Calendar.SECOND, 0);  
-	        calendar.set(java.util.Calendar.MILLISECOND, 0);
+		calendar.setTime(date);
+                int hour = java.util.Calendar.HOUR_OF_DAY;
+	        calendar.set(hour, 0);
+                int minute = java.util.Calendar.MINUTE;
+	        calendar.set(minute, 0);
+                int second = java.util.Calendar.SECOND;
+	        calendar.set(second, 0);
+                int millisecond = java.util.Calendar.MILLISECOND;
+	        calendar.set(millisecond, 0);
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
