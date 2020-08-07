@@ -61,12 +61,11 @@ public class Member implements Serializable {
     }
 
     public void takeOutLoan(Loan loan) {
-        if (!currentNames.containsKey(loan.GeT_Id())) {
-            currentNames.put(loan.GeT_Id(), loan);
+        if (!currentNames.containsKey(loan.getId())) {
+            currentNames.put(loan.getId(), loan);
         } else {
             throw new RuntimeException("Duplicate loan added to member");
         }
-
     }
 
     public String getLastName() {
@@ -98,12 +97,11 @@ public class Member implements Serializable {
     }
 
     public void dischargeLoan(Loan loan) {
-        if (currentNames.containsKey(loan.GeT_Id())) {
-            currentNames.remove(loan.GeT_Id());
+        if (currentNames.containsKey(loan.getId())) {
+            currentNames.remove(loan.getId());
         } else {
             throw new RuntimeException("No such loan held by member");
         }
 
     }
-
 }
