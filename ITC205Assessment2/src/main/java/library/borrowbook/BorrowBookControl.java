@@ -29,22 +29,22 @@ public class BorrowBookControl {
         state = ControlState.INITIALISED;
     }
 
-    public void setUi(BorrowBookUI Ui) {
+    public void setUi(BorrowBookUI ui) {
         if (!state.equals(ControlState.INITIALISED)) {
             throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
         }
 
-        this.ui = Ui;
-        Ui.SeT_StAtE(BorrowBookUI.uI_STaTe.READY);
+        this.ui = ui;
+        ui.SeT_StAtE(BorrowBookUI.uI_STaTe.READY);
         state = ControlState.READY;
     }
 
-    public void swipeCard(int mEmBeR_Id) {
+    public void swipeCard(int memberId) {
         if (!state.equals(ControlState.READY)) {
             throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
         }
 
-        member = library.getMember(mEmBeR_Id);
+        member = library.getMember(memberId);
         if (member == null) {
             ui.DiSpLaY("Invalid memberId");
             return;
@@ -59,13 +59,13 @@ public class BorrowBookControl {
         }
     }
 
-    public void scanBook(int bOoKiD) {
+    public void scanBook(int bookId) {
         book = null;
         if (!state.equals(ControlState.SCANNING)) {
             throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
         }
 
-        book = library.getBook(bOoKiD);
+        book = library.getBook(bookId);
         if (book == null) {
             ui.DiSpLaY("Invalid bookId");
             return;
