@@ -90,8 +90,8 @@ public class BorrowBookControl {
             cancelBorrow();
         } else {
             ui.DiSpLaY("\nFinal Borrowing List");
-            for (Book bOoK : pendingList) {
-                ui.DiSpLaY(bOoK.toString());
+            for (Book book : pendingList) {
+                ui.DiSpLaY(book.toString());
             }
 
             compleatedList = new ArrayList<Loan>();
@@ -105,13 +105,13 @@ public class BorrowBookControl {
             throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
         }
 
-        for (Book B : pendingList) {
-            Loan lOaN = library.issueLoan(B, member);
-            compleatedList.add(lOaN);
+        for (Book book : pendingList) {
+            Loan loan = library.issueLoan(book, member);
+            compleatedList.add(loan);
         }
         ui.DiSpLaY("Completed Loan Slip");
-        for (Loan LOAN : compleatedList) {
-            ui.DiSpLaY(LOAN.toString());
+        for (Loan loan : compleatedList) {
+            ui.DiSpLaY(loan.toString());
         }
 
         ui.SeT_StAtE(BorrowBookUI.uI_STaTe.COMPLETED);
