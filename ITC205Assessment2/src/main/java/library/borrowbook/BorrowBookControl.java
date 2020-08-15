@@ -29,7 +29,7 @@ public class BorrowBookControl {
         state = ControlState.INITIALISED;
     }
 
-    public void SeT_Ui(BorrowBookUI Ui) {
+    public void setUi(BorrowBookUI Ui) {
         if (!state.equals(ControlState.INITIALISED)) {
             throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
         }
@@ -39,7 +39,7 @@ public class BorrowBookControl {
         state = ControlState.READY;
     }
 
-    public void SwIpEd(int mEmBeR_Id) {
+    public void swipeCard(int mEmBeR_Id) {
         if (!state.equals(ControlState.READY)) {
             throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
         }
@@ -59,7 +59,7 @@ public class BorrowBookControl {
         }
     }
 
-    public void ScAnNeD(int bOoKiD) {
+    public void scanBook(int bOoKiD) {
         book = null;
         if (!state.equals(ControlState.SCANNING)) {
             throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
@@ -81,13 +81,13 @@ public class BorrowBookControl {
 
         if (library.getNumberOfLoansRemainingForMember(member) - pendingList.size() == 0) {
             ui.DiSpLaY("Loan limit reached");
-            CoMpLeTe();
+            completeBorrow();
         }
     }
 
-    public void CoMpLeTe() {
+    public void completeBorrow() {
         if (pendingList.size() == 0) {
-            CaNcEl();
+            cancelBorrow();
         } else {
             ui.DiSpLaY("\nFinal Borrowing List");
             for (Book bOoK : pendingList) {
@@ -100,7 +100,7 @@ public class BorrowBookControl {
         }
     }
 
-    public void CoMmIt_LoAnS() {
+    public void CommitLoans() {
         if (!state.equals(ControlState.FINALISING)) {
             throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
         }
@@ -118,7 +118,7 @@ public class BorrowBookControl {
         state = ControlState.COMPLETED;
     }
 
-    public void CaNcEl() {
+    public void cancelBorrow() {
         ui.SeT_StAtE(BorrowBookUI.uI_STaTe.CANCELLED);
         state = ControlState.CANCELLED;
     }
