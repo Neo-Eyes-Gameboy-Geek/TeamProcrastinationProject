@@ -10,117 +10,117 @@ import library.entities.Member;
 
 public class BorrowBookControl {
 
-    private BorrowBookUI uI;
+    private BorrowBookUI ui;
 
-    private Library lIbRaRy;
-    private Member mEmBeR;
+    private Library library;
+    private Member member;
 
-    private enum CONTROL_STATE {
+    private enum ControlState {
         INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED
     };
-    private CONTROL_STATE sTaTe;
+    private ControlState state;
 
-    private List<Book> pEnDiNg_LiSt;
-    private List<Loan> cOmPlEtEd_LiSt;
-    private Book bOoK;
+    private List<Book> pendingList;
+    private List<Loan> compleatedList;
+    private Book book;
 
     public BorrowBookControl() {
-        this.lIbRaRy = Library.getInstance();
-        sTaTe = CONTROL_STATE.INITIALISED;
+        this.library = Library.getInstance();
+        state = ControlState.INITIALISED;
     }
 
     public void SeT_Ui(BorrowBookUI Ui) {
-        if (!sTaTe.equals(CONTROL_STATE.INITIALISED)) {
+        if (!state.equals(ControlState.INITIALISED)) {
             throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
         }
 
-        this.uI = Ui;
+        this.ui = Ui;
         Ui.SeT_StAtE(BorrowBookUI.uI_STaTe.READY);
-        sTaTe = CONTROL_STATE.READY;
+        state = ControlState.READY;
     }
 
     public void SwIpEd(int mEmBeR_Id) {
-        if (!sTaTe.equals(CONTROL_STATE.READY)) {
+        if (!state.equals(ControlState.READY)) {
             throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
         }
 
-        mEmBeR = lIbRaRy.getMember(mEmBeR_Id);
-        if (mEmBeR == null) {
-            uI.DiSpLaY("Invalid memberId");
+        member = library.getMember(mEmBeR_Id);
+        if (member == null) {
+            ui.DiSpLaY("Invalid memberId");
             return;
         }
-        if (lIbRaRy.canMemberBorrow(mEmBeR)) {
-            pEnDiNg_LiSt = new ArrayList<>();
-            uI.SeT_StAtE(BorrowBookUI.uI_STaTe.SCANNING);
-            sTaTe = CONTROL_STATE.SCANNING;
+        if (library.canMemberBorrow(member)) {
+            pendingList = new ArrayList<>();
+            ui.SeT_StAtE(BorrowBookUI.uI_STaTe.SCANNING);
+            state = ControlState.SCANNING;
         } else {
-            uI.DiSpLaY("Member cannot borrow at this time");
-            uI.SeT_StAtE(BorrowBookUI.uI_STaTe.RESTRICTED);
+            ui.DiSpLaY("Member cannot borrow at this time");
+            ui.SeT_StAtE(BorrowBookUI.uI_STaTe.RESTRICTED);
         }
     }
 
     public void ScAnNeD(int bOoKiD) {
-        bOoK = null;
-        if (!sTaTe.equals(CONTROL_STATE.SCANNING)) {
+        book = null;
+        if (!state.equals(ControlState.SCANNING)) {
             throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
         }
 
-        bOoK = lIbRaRy.getBook(bOoKiD);
-        if (bOoK == null) {
-            uI.DiSpLaY("Invalid bookId");
+        book = library.getBook(bOoKiD);
+        if (book == null) {
+            ui.DiSpLaY("Invalid bookId");
             return;
         }
-        if (!bOoK.isAvailable()) {
-            uI.DiSpLaY("Book cannot be borrowed");
+        if (!book.isAvailable()) {
+            ui.DiSpLaY("Book cannot be borrowed");
             return;
         }
-        pEnDiNg_LiSt.add(bOoK);
-        for (Book B : pEnDiNg_LiSt) {
-            uI.DiSpLaY(B.toString());
+        pendingList.add(book);
+        for (Book B : pendingList) {
+            ui.DiSpLaY(B.toString());
         }
 
-        if (lIbRaRy.getNumberOfLoansRemainingForMember(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
-            uI.DiSpLaY("Loan limit reached");
+        if (library.getNumberOfLoansRemainingForMember(member) - pendingList.size() == 0) {
+            ui.DiSpLaY("Loan limit reached");
             CoMpLeTe();
         }
     }
 
     public void CoMpLeTe() {
-        if (pEnDiNg_LiSt.size() == 0) {
+        if (pendingList.size() == 0) {
             CaNcEl();
         } else {
-            uI.DiSpLaY("\nFinal Borrowing List");
-            for (Book bOoK : pEnDiNg_LiSt) {
-                uI.DiSpLaY(bOoK.toString());
+            ui.DiSpLaY("\nFinal Borrowing List");
+            for (Book bOoK : pendingList) {
+                ui.DiSpLaY(bOoK.toString());
             }
 
-            cOmPlEtEd_LiSt = new ArrayList<Loan>();
-            uI.SeT_StAtE(BorrowBookUI.uI_STaTe.FINALISING);
-            sTaTe = CONTROL_STATE.FINALISING;
+            compleatedList = new ArrayList<Loan>();
+            ui.SeT_StAtE(BorrowBookUI.uI_STaTe.FINALISING);
+            state = ControlState.FINALISING;
         }
     }
 
     public void CoMmIt_LoAnS() {
-        if (!sTaTe.equals(CONTROL_STATE.FINALISING)) {
+        if (!state.equals(ControlState.FINALISING)) {
             throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
         }
 
-        for (Book B : pEnDiNg_LiSt) {
-            Loan lOaN = lIbRaRy.issueLoan(B, mEmBeR);
-            cOmPlEtEd_LiSt.add(lOaN);
+        for (Book B : pendingList) {
+            Loan lOaN = library.issueLoan(B, member);
+            compleatedList.add(lOaN);
         }
-        uI.DiSpLaY("Completed Loan Slip");
-        for (Loan LOAN : cOmPlEtEd_LiSt) {
-            uI.DiSpLaY(LOAN.toString());
+        ui.DiSpLaY("Completed Loan Slip");
+        for (Loan LOAN : compleatedList) {
+            ui.DiSpLaY(LOAN.toString());
         }
 
-        uI.SeT_StAtE(BorrowBookUI.uI_STaTe.COMPLETED);
-        sTaTe = CONTROL_STATE.COMPLETED;
+        ui.SeT_StAtE(BorrowBookUI.uI_STaTe.COMPLETED);
+        state = ControlState.COMPLETED;
     }
 
     public void CaNcEl() {
-        uI.SeT_StAtE(BorrowBookUI.uI_STaTe.CANCELLED);
-        sTaTe = CONTROL_STATE.CANCELLED;
+        ui.SeT_StAtE(BorrowBookUI.uI_STaTe.CANCELLED);
+        state = ControlState.CANCELLED;
     }
 
 }
