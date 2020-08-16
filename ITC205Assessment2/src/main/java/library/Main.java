@@ -159,7 +159,7 @@ public class Main {
     }
 
     private static void BORROW_BOOK() {
-        new BorrowBookUI(new bORROW_bOOK_cONTROL()).RuN();
+        new BorrowBookUI(new bORROW_bOOK_cONTROL()).runUi();
     }
 
     private static void RETURN_BOOK() {

@@ -32,7 +32,7 @@ public class bORROW_bOOK_cONTROL {
 			throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
 			
 		this.uI = Ui;
-		Ui.SeT_StAtE(BorrowBookUI.UiState.READY);
+		Ui.setState(BorrowBookUI.UiState.READY);
 		sTaTe = CONTROL_STATE.READY;		
 	}
 
@@ -43,17 +43,17 @@ public class bORROW_bOOK_cONTROL {
 			
 		mEmBeR = lIbRaRy.getMember(mEmBeR_Id);
 		if (mEmBeR == null) {
-			uI.DiSpLaY("Invalid memberId");
+			uI.displayUi("Invalid memberId");
 			return;
 		}
 		if (lIbRaRy.canMemberBorrow(mEmBeR)) {
 			pEnDiNg_LiSt = new ArrayList<>();
-			uI.SeT_StAtE(BorrowBookUI.UiState.SCANNING);
+			uI.setState(BorrowBookUI.UiState.SCANNING);
 			sTaTe = CONTROL_STATE.SCANNING; 
 		}
 		else {
-			uI.DiSpLaY("Member cannot borrow at this time");
-			uI.SeT_StAtE(BorrowBookUI.UiState.RESTRICTED); 
+			uI.displayUi("Member cannot borrow at this time");
+			uI.setState(BorrowBookUI.UiState.RESTRICTED); 
 		}
 	}
 	
@@ -65,19 +65,19 @@ public class bORROW_bOOK_cONTROL {
 			
 		bOoK = lIbRaRy.getBook(bOoKiD);
 		if (bOoK == null) {
-			uI.DiSpLaY("Invalid bookId");
+			uI.displayUi("Invalid bookId");
 			return;
 		}
 		if (!bOoK.isAvailable()) {
-			uI.DiSpLaY("Book cannot be borrowed");
+			uI.displayUi("Book cannot be borrowed");
 			return;
 		}
 		pEnDiNg_LiSt.add(bOoK);
 		for (Book B : pEnDiNg_LiSt) 
-			uI.DiSpLaY(B.toString());
+			uI.displayUi(B.toString());
 		
 		if (lIbRaRy.getNumberOfLoansRemainingForMember(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
-			uI.DiSpLaY("Loan limit reached");
+			uI.displayUi("Loan limit reached");
 			CoMpLeTe();
 		}
 	}
@@ -88,12 +88,12 @@ public class bORROW_bOOK_cONTROL {
 			CaNcEl();
 		
 		else {
-			uI.DiSpLaY("\nFinal Borrowing List");
+			uI.displayUi("\nFinal Borrowing List");
 			for (Book bOoK : pEnDiNg_LiSt) 
-				uI.DiSpLaY(bOoK.toString());
+				uI.displayUi(bOoK.toString());
 			
 			cOmPlEtEd_LiSt = new ArrayList<Loan>();
-			uI.SeT_StAtE(BorrowBookUI.UiState.FINALISING);
+			uI.setState(BorrowBookUI.UiState.FINALISING);
 			sTaTe = CONTROL_STATE.FINALISING;
 		}
 	}
@@ -107,17 +107,17 @@ public class bORROW_bOOK_cONTROL {
 			Loan lOaN = lIbRaRy.issueLoan(B, mEmBeR);
 			cOmPlEtEd_LiSt.add(lOaN);			
 		}
-		uI.DiSpLaY("Completed Loan Slip");
+		uI.displayUi("Completed Loan Slip");
 		for (Loan LOAN : cOmPlEtEd_LiSt) 
-			uI.DiSpLaY(LOAN.toString());
+			uI.displayUi(LOAN.toString());
 		
-		uI.SeT_StAtE(BorrowBookUI.UiState.COMPLETED);
+		uI.setState(BorrowBookUI.UiState.COMPLETED);
 		sTaTe = CONTROL_STATE.COMPLETED;
 	}
 
 	
 	public void CaNcEl() {
-		uI.SeT_StAtE(BorrowBookUI.UiState.CANCELLED);
+		uI.setState(BorrowBookUI.UiState.CANCELLED);
 		sTaTe = CONTROL_STATE.CANCELLED;
 	}
 	
