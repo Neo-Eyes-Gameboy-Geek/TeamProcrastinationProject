@@ -44,15 +44,15 @@ public class BorrowBookUI {
                     return;
 
                 case READY:
-                    String MEM_STR = input("Swipe member card (press <enter> to cancel): ");
-                    if (MEM_STR.length() == 0) {
+                    String memberIdString = input("Swipe member card (press <enter> to cancel): ");
+                    if (memberIdString.length() == 0) {
                         control.CaNcEl();
                         break;
                     }
                     try {
-                        int MeMbEr_Id = Integer.valueOf(MEM_STR).intValue();
-                        control.SwIpEd(MeMbEr_Id);
-                    } catch (NumberFormatException e) {
+                        int memberIdNumber = Integer.valueOf(memberIdString).intValue();
+                        control.SwIpEd(memberIdNumber);
+                    } catch (NumberFormatException nfe) {
                         output("Invalid Member Id");
                     }
                     break;
@@ -63,23 +63,23 @@ public class BorrowBookUI {
                     break;
 
                 case SCANNING:
-                    String BoOk_StRiNg_InPuT = input("Scan Book (<enter> completes): ");
-                    if (BoOk_StRiNg_InPuT.length() == 0) {
+                    String bookIdString = input("Scan Book (<enter> completes): ");
+                    if (bookIdString.length() == 0) {
                         control.CoMpLeTe();
                         break;
                     }
                     try {
-                        int BiD = Integer.valueOf(BoOk_StRiNg_InPuT).intValue();
-                        control.ScAnNeD(BiD);
+                        int bookIdNumber = Integer.valueOf(bookIdString).intValue();
+                        control.ScAnNeD(bookIdNumber);
 
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException nfe) {
                         output("Invalid Book Id");
                     }
                     break;
 
                 case FINALISING:
-                    String AnS = input("Commit loans? (Y/N): ");
-                    if (AnS.toUpperCase().equals("N")) {
+                    String answer = input("Commit loans? (Y/N): ");
+                    if (answer.toUpperCase().equals("N")) {
                         control.CaNcEl();
 
                     } else {
