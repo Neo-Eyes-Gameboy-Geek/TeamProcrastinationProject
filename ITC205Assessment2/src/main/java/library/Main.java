@@ -15,7 +15,7 @@ import library.fixbook.fIX_bOOK_cONTROL;
 import library.payfine.PayFineUI;
 import library.payfine.pAY_fINE_cONTROL;
 import library.returnBook.ReturnBookUI;
-import library.returnBook.rETURN_bOOK_cONTROL;
+import library.returnBook.ReturnBookControl;
 
 public class Main {
 
@@ -163,7 +163,7 @@ public class Main {
     }
 
     private static void RETURN_BOOK() {
-        new ReturnBookUI(new rETURN_bOOK_cONTROL()).RuN();
+        new ReturnBookUI(new ReturnBookControl()).run();
     }
 
     private static void FIX_BOOKS() {
