@@ -15,7 +15,7 @@ public class ReturnBookUI {
 		this.CoNtRoL = cOnTrOL;
 		iNpUt = new Scanner(System.in);
 		StATe = uI_sTaTe.INITIALISED;
-		cOnTrOL.sEt_uI(this);
+		cOnTrOL.setUi(this);
 	}
 
 
@@ -32,12 +32,12 @@ public class ReturnBookUI {
 			case READY:
 				String BoOk_InPuT_StRiNg = iNpUt("Scan Book (<enter> completes): ");
 				if (BoOk_InPuT_StRiNg.length() == 0) 
-					CoNtRoL.sCaNnInG_cOmPlEtE();
+					CoNtRoL.scanningComplete();
 				
 				else {
 					try {
 						int Book_Id = Integer.valueOf(BoOk_InPuT_StRiNg).intValue();
-						CoNtRoL.bOoK_sCaNnEd(Book_Id);
+						CoNtRoL.bookScanned(Book_Id);
 					}
 					catch (NumberFormatException e) {
 						oUtPuT("Invalid bookId");
@@ -51,7 +51,7 @@ public class ReturnBookUI {
 				if (AnS.toUpperCase().equals("Y")) 					
 					Is_DAmAgEd = true;
 				
-				CoNtRoL.dIsChArGe_lOaN(Is_DAmAgEd);
+				CoNtRoL.dischargeLoan(Is_DAmAgEd);
 			
 			case COMPLETED:
 				oUtPuT("Return processing complete");
