@@ -19,16 +19,16 @@ import library.returnBook.rETURN_bOOK_cONTROL;
 
 public class Main {
 
-    private static Scanner IN;
-    private static Library LIB;
-    private static String MENU;
-    private static Calendar CAL;
-    private static SimpleDateFormat SDF;
+    private static Scanner in;
+    private static Library library;
+    private static String menu;
+    private static Calendar calender;
+    private static SimpleDateFormat simpleDateFormat;
 
-    private static String Get_menu() {
-        StringBuilder sb = new StringBuilder();
+    private static String getMenu() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-        sb.append("\nLibrary Main Menu\n\n")
+        stringBuilder.append("\nLibrary Main Menu\n\n")
                 .append("  M  : add member\n")
                 .append("  LM : list members\n")
                 .append("\n")
@@ -47,32 +47,32 @@ public class Main {
                 .append("\n")
                 .append("Choice : ");
 
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
     public static void main(String[] args) {
         try {
-            IN = new Scanner(System.in);
-            LIB = Library.getInstance();
-            CAL = Calendar.getCalendarInstance();
-            SDF = new SimpleDateFormat("dd/MM/yyyy");
+            in = new Scanner(System.in);
+            library = Library.getInstance();
+            calender = Calendar.getCalendarInstance();
+            simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-            for (Member m : LIB.listMembers()) {
-                output(m);
+            for (Member menu : library.listMembers()) {
+                output(menu);
             }
             output(" ");
-            for (Book b : LIB.listBooks()) {
+            for (Book b : library.listBooks()) {
                 output(b);
             }
 
-            MENU = Get_menu();
+            menu = getMenu();
 
             boolean e = false;
 
             while (!e) {
 
-                output("\n" + SDF.format(CAL.getDate()));
-                String c = input(MENU);
+                output("\n" + simpleDateFormat.format(calender.getDate()));
+                String c = input(menu);
 
                 switch (c.toUpperCase()) {
 
@@ -139,21 +139,21 @@ public class Main {
 
     private static void LIST_CURRENT_LOANS() {
         output("");
-        for (Loan loan : LIB.listCurrentLoans()) {
+        for (Loan loan : library.listCurrentLoans()) {
             output(loan + "\n");
         }
     }
 
     private static void LIST_BOOKS() {
         output("");
-        for (Book book : LIB.listBooks()) {
+        for (Book book : library.listBooks()) {
             output(book + "\n");
         }
     }
 
     private static void LIST_MEMBERS() {
         output("");
-        for (Member member : LIB.listMembers()) {
+        for (Member member : library.listMembers()) {
             output(member + "\n");
         }
     }
@@ -173,9 +173,9 @@ public class Main {
     private static void INCREMENT_DATE() {
         try {
             int days = Integer.valueOf(input("Enter number of days: ")).intValue();
-            CAL.incrementDate(days);
-            LIB.checkCurrentLoans();
-            output(SDF.format(CAL.getDate()));
+            calender.incrementDate(days);
+            library.checkCurrentLoans();
+            output(simpleDateFormat.format(calender.getDate()));
 
         } catch (NumberFormatException e) {
             output("\nInvalid number of days\n");
@@ -187,7 +187,7 @@ public class Main {
         String AuThOr = input("Enter author: ");
         String TiTlE = input("Enter title: ");
         String CaLl_NuMbEr = input("Enter call number: ");
-        Book BoOk = LIB.addBook(AuThOr, TiTlE, CaLl_NuMbEr);
+        Book BoOk = library.addBook(AuThOr, TiTlE, CaLl_NuMbEr);
         output("\n" + BoOk + "\n");
 
     }
@@ -198,7 +198,7 @@ public class Main {
             String FiRsT_NaMe = input("Enter first name: ");
             String EmAiL_AdDrEsS = input("Enter email address: ");
             int PhOnE_NuMbEr = Integer.valueOf(input("Enter phone number: ")).intValue();
-            Member MeMbEr = LIB.addMember(LaSt_NaMe, FiRsT_NaMe, EmAiL_AdDrEsS, PhOnE_NuMbEr);
+            Member MeMbEr = library.addMember(LaSt_NaMe, FiRsT_NaMe, EmAiL_AdDrEsS, PhOnE_NuMbEr);
             output("\n" + MeMbEr + "\n");
 
         } catch (NumberFormatException e) {
@@ -209,7 +209,7 @@ public class Main {
 
     private static String input(String prompt) {
         System.out.print(prompt);
-        return IN.nextLine();
+        return in.nextLine();
     }
 
     private static void output(Object object) {
