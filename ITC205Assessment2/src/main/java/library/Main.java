@@ -2,6 +2,7 @@ package library;
 
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.Date;
 
 import library.borrowbook.BorrowBookUI;
 import library.borrowbook.bORROW_bOOK_cONTROL;
@@ -70,8 +71,8 @@ public class Main {
             boolean exit = false;
 
             while (!exit) {
-
-                output("\n" + simpleDateFormat.format(calender.getDate()));
+                Date calenderDate = calender.getDate();
+                output("\n" + simpleDateFormat.format(calenderDate));
                 String choice = input(menu);
 
                 switch (choice.toUpperCase()) {
@@ -134,7 +135,8 @@ public class Main {
     }
 
     private static void payFines() {
-        new PayFineUI(new pAY_fINE_cONTROL()).RuN();
+        pAY_fINE_cONTROL payFineControl = new pAY_fINE_cONTROL();
+        new PayFineUI(payFineControl).RuN();
     }
 
     private static void listCurrentLoans() {
@@ -159,23 +161,28 @@ public class Main {
     }
 
     private static void borrowBook() {
-        new BorrowBookUI(new bORROW_bOOK_cONTROL()).RuN();
+        bORROW_bOOK_cONTROL borrowBookControl = new bORROW_bOOK_cONTROL();
+        new BorrowBookUI(borrowBookControl).RuN();
     }
 
     private static void returnBook() {
-        new ReturnBookUI(new rETURN_bOOK_cONTROL()).RuN();
+        rETURN_bOOK_cONTROL returnBookControl = new rETURN_bOOK_cONTROL();
+        new ReturnBookUI(returnBookControl).RuN();
     }
 
     private static void fixBooks() {
-        new FixBookUI(new fIX_bOOK_cONTROL()).RuN();
+        fIX_bOOK_cONTROL fixBookControl = new fIX_bOOK_cONTROL();
+        new FixBookUI(fixBookControl).RuN();
     }
 
     private static void incrementDate() {
         try {
-            int days = Integer.valueOf(input("Enter number of days: ")).intValue();
+            String noOfDays = input("Enter number of days: ");
+            int days = Integer.valueOf(noOfDays).intValue();
             calender.incrementDate(days);
             library.checkCurrentLoans();
-            output(simpleDateFormat.format(calender.getDate()));
+            Date calenderDate = calender.getDate();
+            output(simpleDateFormat.format(calenderDate));
 
         } catch (NumberFormatException e) {
             output("\nInvalid number of days\n");
@@ -197,7 +204,8 @@ public class Main {
             String lastName = input("Enter last name: ");
             String firstName = input("Enter first name: ");
             String emailAddress = input("Enter email address: ");
-            int phoneNumber = Integer.valueOf(input("Enter phone number: ")).intValue();
+            String phoNumString = input("Enter phone number: ");
+            int phoneNumber = Integer.valueOf(phoNumString).intValue();
             Member member = library.addMember(lastName, firstName, emailAddress, phoneNumber);
             output("\n" + member + "\n");
 
