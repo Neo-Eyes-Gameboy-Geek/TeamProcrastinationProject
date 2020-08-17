@@ -67,57 +67,57 @@ public class Main {
 
             menu = getMenu();
 
-            boolean e = false;
+            boolean exit = false;
 
-            while (!e) {
+            while (!exit) {
 
                 output("\n" + simpleDateFormat.format(calender.getDate()));
-                String c = input(menu);
+                String choice = input(menu);
 
-                switch (c.toUpperCase()) {
+                switch (choice.toUpperCase()) {
 
                     case "M":
-                        ADD_MEMBER();
+                        addMember();
                         break;
 
                     case "LM":
-                        LIST_MEMBERS();
+                        listMembers();
                         break;
 
                     case "B":
-                        ADD_BOOK();
+                        addBook();
                         break;
 
                     case "LB":
-                        LIST_BOOKS();
+                        listBooks();
                         break;
 
                     case "FB":
-                        FIX_BOOKS();
+                        fixBooks();
                         break;
 
                     case "L":
-                        BORROW_BOOK();
+                        borrowBook();
                         break;
 
                     case "R":
-                        RETURN_BOOK();
+                        returnBook();
                         break;
 
                     case "LL":
-                        LIST_CURRENT_LOANS();
+                        listCurrentLoans();
                         break;
 
                     case "P":
-                        PAY_FINES();
+                        payFines();
                         break;
 
                     case "T":
-                        INCREMENT_DATE();
+                        incrementDate();
                         break;
 
                     case "Q":
-                        e = true;
+                        exit = true;
                         break;
 
                     default:
@@ -133,44 +133,44 @@ public class Main {
         output("\nEnded\n");
     }
 
-    private static void PAY_FINES() {
+    private static void payFines() {
         new PayFineUI(new pAY_fINE_cONTROL()).RuN();
     }
 
-    private static void LIST_CURRENT_LOANS() {
+    private static void listCurrentLoans() {
         output("");
         for (Loan loan : library.listCurrentLoans()) {
             output(loan + "\n");
         }
     }
 
-    private static void LIST_BOOKS() {
+    private static void listBooks() {
         output("");
         for (Book book : library.listBooks()) {
             output(book + "\n");
         }
     }
 
-    private static void LIST_MEMBERS() {
+    private static void listMembers() {
         output("");
         for (Member member : library.listMembers()) {
             output(member + "\n");
         }
     }
 
-    private static void BORROW_BOOK() {
+    private static void borrowBook() {
         new BorrowBookUI(new bORROW_bOOK_cONTROL()).RuN();
     }
 
-    private static void RETURN_BOOK() {
+    private static void returnBook() {
         new ReturnBookUI(new rETURN_bOOK_cONTROL()).RuN();
     }
 
-    private static void FIX_BOOKS() {
+    private static void fixBooks() {
         new FixBookUI(new fIX_bOOK_cONTROL()).RuN();
     }
 
-    private static void INCREMENT_DATE() {
+    private static void incrementDate() {
         try {
             int days = Integer.valueOf(input("Enter number of days: ")).intValue();
             calender.incrementDate(days);
@@ -182,24 +182,24 @@ public class Main {
         }
     }
 
-    private static void ADD_BOOK() {
+    private static void addBook() {
 
-        String AuThOr = input("Enter author: ");
-        String TiTlE = input("Enter title: ");
-        String CaLl_NuMbEr = input("Enter call number: ");
-        Book BoOk = library.addBook(AuThOr, TiTlE, CaLl_NuMbEr);
-        output("\n" + BoOk + "\n");
+        String author = input("Enter author: ");
+        String title = input("Enter title: ");
+        String callNumber = input("Enter call number: ");
+        Book book = library.addBook(author, title, callNumber);
+        output("\n" + book + "\n");
 
     }
 
-    private static void ADD_MEMBER() {
+    private static void addMember() {
         try {
-            String LaSt_NaMe = input("Enter last name: ");
-            String FiRsT_NaMe = input("Enter first name: ");
-            String EmAiL_AdDrEsS = input("Enter email address: ");
-            int PhOnE_NuMbEr = Integer.valueOf(input("Enter phone number: ")).intValue();
-            Member MeMbEr = library.addMember(LaSt_NaMe, FiRsT_NaMe, EmAiL_AdDrEsS, PhOnE_NuMbEr);
-            output("\n" + MeMbEr + "\n");
+            String lastName = input("Enter last name: ");
+            String firstName = input("Enter first name: ");
+            String emailAddress = input("Enter email address: ");
+            int phoneNumber = Integer.valueOf(input("Enter phone number: ")).intValue();
+            Member member = library.addMember(lastName, firstName, emailAddress, phoneNumber);
+            output("\n" + member + "\n");
 
         } catch (NumberFormatException e) {
             output("\nInvalid phone number\n");
