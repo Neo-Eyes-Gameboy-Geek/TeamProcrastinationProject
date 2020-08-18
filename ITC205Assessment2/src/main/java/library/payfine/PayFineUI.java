@@ -39,7 +39,7 @@ public class PayFineUI {
                     try {
                         int memberId = Integer.valueOf(memberCardId).intValue();
                         control.cardSwiped(memberId);
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException nfe) {
                         output("Invalid memberId");
                     }
                     break;
@@ -53,7 +53,7 @@ public class PayFineUI {
                     }
                     try {
                         payAmount = Double.valueOf(payAmountString).doubleValue();
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException nfe) {
                     }
                     if (payAmount <= 0) {
                         output("Amount must be positive");
