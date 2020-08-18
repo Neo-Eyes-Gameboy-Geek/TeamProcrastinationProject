@@ -58,7 +58,7 @@ public class Main {
             calender = Calendar.getCalendarInstance();
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-            for (Member menu : library.listMembers()) {
+            for (Member member : library.listMembers()) {
                 output(menu);
             }
             output(" ");
