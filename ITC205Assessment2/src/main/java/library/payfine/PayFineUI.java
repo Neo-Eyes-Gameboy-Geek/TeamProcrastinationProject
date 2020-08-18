@@ -5,32 +5,32 @@ import java.util.Scanner;
 public class PayFineUI {
 
 
-	public static enum uI_sTaTe { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
+	public static enum uIState { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
 
 	private pAY_fINE_cONTROL CoNtRoL;
 	private Scanner input;
-	private uI_sTaTe StAtE;
+	private uIState state;
 
 	
 	public PayFineUI(pAY_fINE_cONTROL control) {
 		this.CoNtRoL = control;
 		input = new Scanner(System.in);
-		StAtE = uI_sTaTe.INITIALISED;
+		state = uIState.INITIALISED;
 		control.SeT_uI(this);
 	}
 	
 	
-	public void SeT_StAtE(uI_sTaTe state) {
-		this.StAtE = state;
+	public void setState(uIState state) {
+		this.state = state;
 	}
 
 
 	public void RuN() {
-		output("Pay Fine Use Case UI\n");
+		output("Pay Fine Use Case uI\n");
 		
 		while (true) {
 			
-			switch (StAtE) {
+			switch (state) {
 			
 			case READY:
 				String Mem_Str = input("Swipe member card (press <enter> to cancel): ");
@@ -75,7 +75,7 @@ public class PayFineUI {
 			
 			default:
 				output("Unhandled state");
-				throw new RuntimeException("FixBookUI : unhandled state :" + StAtE);			
+				throw new RuntimeException("FixBookUI : unhandled state :" + state);			
 			
 			}		
 		}		

@@ -4,42 +4,42 @@ import java.util.Scanner;
 
 public class FixBookUI {
 
-	public static enum uI_sTaTe { INITIALISED, READY, FIXING, COMPLETED };
+	public static enum uIState { INITIALISED, READY, FIXING, COMPLETED };
 
-	private fIX_bOOK_cONTROL CoNtRoL;
+	private FixBookControl CoNtRoL;
 	private Scanner InPuT;
-	private uI_sTaTe StAtE;
+	private uIState state;
 
 	
-	public FixBookUI(fIX_bOOK_cONTROL CoNtRoL) {
+	public FixBookUI(FixBookControl CoNtRoL) {
 		this.CoNtRoL = CoNtRoL;
 		InPuT = new Scanner(System.in);
-		StAtE = uI_sTaTe.INITIALISED;
-		CoNtRoL.SeT_Ui(this);
+		state = uIState.INITIALISED;
+		CoNtRoL.setUI(this);
 	}
 
 
-	public void SeT_StAtE(uI_sTaTe state) {
-		this.StAtE = state;
+	public void setState(uIState state) {
+		this.state = state;
 	}
 
 	
 	public void RuN() {
-		OuTpUt("Fix Book Use Case UI\n");
+		OuTpUt("Fix Book Use Case uI\n");
 		
 		while (true) {
 			
-			switch (StAtE) {
+			switch (state) {
 			
 			case READY:
 				String BoOk_EnTrY_StRiNg = iNpUt("Scan Book (<enter> completes): ");
 				if (BoOk_EnTrY_StRiNg.length() == 0) 
-					CoNtRoL.SCannING_COMplete();
+					CoNtRoL.scanningComplete();
 				
 				else {
 					try {
 						int BoOk_Id = Integer.valueOf(BoOk_EnTrY_StRiNg).intValue();
-						CoNtRoL.BoOk_ScAnNeD(BoOk_Id);
+						CoNtRoL.bookScanned(BoOk_Id);
 					}
 					catch (NumberFormatException e) {
 						OuTpUt("Invalid bookId");
@@ -53,7 +53,7 @@ public class FixBookUI {
 				if (AnS.toUpperCase().equals("Y")) 
 					FiX = true;
 				
-				CoNtRoL.FiX_BoOk(FiX);
+				CoNtRoL.fixBook(FiX);
 				break;
 								
 			case COMPLETED:
@@ -62,7 +62,7 @@ public class FixBookUI {
 			
 			default:
 				OuTpUt("Unhandled state");
-				throw new RuntimeException("FixBookUI : unhandled state :" + StAtE);			
+				throw new RuntimeException("FixBookUI : unhandled state :" + state);			
 			
 			}		
 		}
@@ -81,7 +81,7 @@ public class FixBookUI {
 	}
 	
 
-	public void dIsPlAy(Object object) {
+	public void display(Object object) {
 		OuTpUt(object);
 	}
 	

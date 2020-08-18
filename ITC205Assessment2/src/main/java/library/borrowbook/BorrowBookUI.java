@@ -15,7 +15,7 @@ public class BorrowBookUI {
 		this.CoNtRoL = control;
 		InPuT = new Scanner(System.in);
 		StaTe = uI_STaTe.INITIALISED;
-		control.SeT_Ui(this);
+		control.setUI(this);
 	}
 
 	
@@ -30,13 +30,13 @@ public class BorrowBookUI {
 	}
 	
 			
-	public void SeT_StAtE(uI_STaTe StAtE) {
-		this.StaTe = StAtE;
+	public void setState(uI_STaTe state) {
+		this.StaTe = state;
 	}
 
 	
 	public void RuN() {
-		OuTpUt("Borrow Book Use Case UI\n");
+		OuTpUt("Borrow Book Use Case uI\n");
 		
 		while (true) {
 			

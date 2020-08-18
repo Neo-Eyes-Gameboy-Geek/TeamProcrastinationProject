@@ -5,7 +5,7 @@ import library.entities.Loan;
 
 public class rETURN_bOOK_cONTROL {
 
-	private ReturnBookUI Ui;
+	private ReturnBookUI uI;
 	private enum cOnTrOl_sTaTe { INITIALISED, READY, INSPECTING };
 	private cOnTrOl_sTaTe sTaTe;
 	
@@ -23,8 +23,8 @@ public class rETURN_bOOK_cONTROL {
 		if (!sTaTe.equals(cOnTrOl_sTaTe.INITIALISED)) 
 			throw new RuntimeException("ReturnBookControl: cannot call setUI except in INITIALISED state");
 		
-		this.Ui = uI;
-		uI.sEt_sTaTe(ReturnBookUI.uI_sTaTe.READY);
+		this.uI = uI;
+		uI.sEt_sTaTe(ReturnBookUI.uIState.READY);
 		sTaTe = cOnTrOl_sTaTe.READY;		
 	}
 
@@ -36,11 +36,11 @@ public class rETURN_bOOK_cONTROL {
 		Book cUrReNt_bOoK = lIbRaRy.getBook(bOoK_iD);
 		
 		if (cUrReNt_bOoK == null) {
-			Ui.DiSpLaY("Invalid Book Id");
+			uI.DiSpLaY("Invalid Book Id");
 			return;
 		}
 		if (!cUrReNt_bOoK.isOnLoan()) {
-			Ui.DiSpLaY("Book has not been borrowed");
+			uI.DiSpLaY("Book has not been borrowed");
 			return;
 		}		
 		CurrENT_loan = lIbRaRy.getLoanByBookId(bOoK_iD);	
@@ -48,14 +48,14 @@ public class rETURN_bOOK_cONTROL {
 		if (CurrENT_loan.isBookOverdue()) 
 			Over_Due_Fine = lIbRaRy.calculateOverDueFine(CurrENT_loan);
 		
-		Ui.DiSpLaY("Inspecting");
-		Ui.DiSpLaY(cUrReNt_bOoK.toString());
-		Ui.DiSpLaY(CurrENT_loan.toString());
+		uI.DiSpLaY("Inspecting");
+		uI.DiSpLaY(cUrReNt_bOoK.toString());
+		uI.DiSpLaY(CurrENT_loan.toString());
 		
 		if (CurrENT_loan.isBookOverdue()) 
-			Ui.DiSpLaY(String.format("\nOverdue fine : $%.2f", Over_Due_Fine));
+			uI.DiSpLaY(String.format("\nOverdue fine : $%.2f", Over_Due_Fine));
 		
-		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.INSPECTING);
+		uI.sEt_sTaTe(ReturnBookUI.uIState.INSPECTING);
 		sTaTe = cOnTrOl_sTaTe.INSPECTING;		
 	}
 
@@ -64,7 +64,7 @@ public class rETURN_bOOK_cONTROL {
 		if (!sTaTe.equals(cOnTrOl_sTaTe.READY)) 
 			throw new RuntimeException("ReturnBookControl: cannot call scanningComplete except in READY state");
 			
-		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.COMPLETED);		
+		uI.sEt_sTaTe(ReturnBookUI.uIState.COMPLETED);		
 	}
 
 
@@ -74,7 +74,7 @@ public class rETURN_bOOK_cONTROL {
 		
 		lIbRaRy.dischargeLoan(CurrENT_loan, iS_dAmAgEd);
 		CurrENT_loan = null;
-		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.READY);
+		uI.sEt_sTaTe(ReturnBookUI.uIState.READY);
 		sTaTe = cOnTrOl_sTaTe.READY;				
 	}
 
