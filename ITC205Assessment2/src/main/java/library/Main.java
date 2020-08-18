@@ -184,7 +184,7 @@ public class Main {
             Date calenderDate = calender.getDate();
             output(simpleDateFormat.format(calenderDate));
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException numberFormatException) {
             output("\nInvalid number of days\n");
         }
     }
