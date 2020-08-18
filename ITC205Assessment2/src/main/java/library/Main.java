@@ -59,7 +59,7 @@ public class Main {
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
             for (Member member : library.listMembers()) {
-                output(menu);
+                output(member);
             }
             output(" ");
             for (Book b : library.listBooks()) {
