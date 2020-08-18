@@ -6,14 +6,14 @@ public class BorrowBookUI {
 	
 	public static enum uI_STaTe { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
 
-	private bORROW_bOOK_cONTROL CONTROL;
-	private Scanner INPUT;
+	private bORROW_bOOK_cONTROL control;
+	private Scanner input;
 	private uI_STaTe StaTe;
 
 	
 	public BorrowBookUI(bORROW_bOOK_cONTROL control) {
-		this.CONTROL = control;
-		INPUT = new Scanner(System.in);
+		this.control = control;
+		input = new Scanner(System.in);
 		StaTe = uI_STaTe.INITIALISED;
 		control.setUI(this);
 	}
@@ -21,7 +21,7 @@ public class BorrowBookUI {
 	
 	private String iNpUT(String PrOmPt) {
 		System.out.print(PrOmPt);
-		return INPUT.nextLine();
+		return input.nextLine();
 	}	
 		
 		
@@ -30,8 +30,8 @@ public class BorrowBookUI {
 	}
 	
 			
-	public void setState(uI_STaTe STATE) {
-		this.StaTe = STATE;
+	public void setState(uI_STaTe state) {
+		this.StaTe = state;
 	}
 
 	
@@ -50,12 +50,12 @@ public class BorrowBookUI {
 			case READY:
 				String MEM_STR = iNpUT("Swipe member card (press <enter> to cancel): ");
 				if (MEM_STR.length() == 0) {
-					CONTROL.CaNcEl();
+					control.CaNcEl();
 					break;
 				}
 				try {
 					int MeMbEr_Id = Integer.valueOf(MEM_STR).intValue();
-					CONTROL.SwIpEd(MeMbEr_Id);
+					control.SwIpEd(MeMbEr_Id);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid Member Id");
@@ -65,19 +65,19 @@ public class BorrowBookUI {
 				
 			case RESTRICTED:
 				iNpUT("Press <any key> to cancel");
-				CONTROL.CaNcEl();
+				control.CaNcEl();
 				break;
 			
 				
 			case SCANNING:
 				String BoOk_StRiNg_InPuT = iNpUT("Scan Book (<enter> completes): ");
 				if (BoOk_StRiNg_InPuT.length() == 0) {
-					CONTROL.CoMpLeTe();
+					control.CoMpLeTe();
 					break;
 				}
 				try {
 					int BiD = Integer.valueOf(BoOk_StRiNg_InPuT).intValue();
-					CONTROL.ScAnNeD(BiD);
+					control.ScAnNeD(BiD);
 					
 				} catch (NumberFormatException e) {
 					output("Invalid Book Id");
@@ -88,10 +88,10 @@ public class BorrowBookUI {
 			case FINALISING:
 				String answer = iNpUT("Commit loans? (Y/N): ");
 				if (answer.toUpperCase().equals("N")) {
-					CONTROL.CaNcEl();
+					control.CaNcEl();
 					
 				} else {
-					CONTROL.CoMmIt_LoAnS();
+					control.CoMmIt_LoAnS();
 					iNpUT("Press <any key> to complete ");
 				}
 				break;

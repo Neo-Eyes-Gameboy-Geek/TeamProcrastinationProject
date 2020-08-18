@@ -7,21 +7,21 @@ public class PayFineUI {
 
 	public static enum uI_sTaTe { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
 
-	private pAY_fINE_cONTROL CONTROL;
+	private pAY_fINE_cONTROL control;
 	private Scanner input;
-	private uI_sTaTe STATE;
+	private uI_sTaTe state;
 
 	
 	public PayFineUI(pAY_fINE_cONTROL control) {
-		this.CONTROL = control;
+		this.control = control;
 		input = new Scanner(System.in);
-		STATE = uI_sTaTe.INITIALISED;
+		state = uI_sTaTe.INITIALISED;
 		control.SeT_uI(this);
 	}
 	
 	
 	public void setState(uI_sTaTe state) {
-		this.STATE = state;
+		this.state = state;
 	}
 
 
@@ -30,17 +30,17 @@ public class PayFineUI {
 		
 		while (true) {
 			
-			switch (STATE) {
+			switch (state) {
 			
 			case READY:
 				String Mem_Str = input("Swipe member card (press <enter> to cancel): ");
 				if (Mem_Str.length() == 0) {
-					CONTROL.CaNcEl();
+					control.CaNcEl();
 					break;
 				}
 				try {
 					int Member_ID = Integer.valueOf(Mem_Str).intValue();
-					CONTROL.CaRd_sWiPeD(Member_ID);
+					control.CaRd_sWiPeD(Member_ID);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid memberId");
@@ -51,7 +51,7 @@ public class PayFineUI {
 				double AmouNT = 0;
 				String Amt_Str = input("Enter amount (<Enter> cancels) : ");
 				if (Amt_Str.length() == 0) {
-					CONTROL.CaNcEl();
+					control.CaNcEl();
 					break;
 				}
 				try {
@@ -62,7 +62,7 @@ public class PayFineUI {
 					output("Amount must be positive");
 					break;
 				}
-				CONTROL.PaY_FiNe(AmouNT);
+				control.PaY_FiNe(AmouNT);
 				break;
 								
 			case CANCELLED:
@@ -75,7 +75,7 @@ public class PayFineUI {
 			
 			default:
 				output("Unhandled state");
-				throw new RuntimeException("FixBookUI : unhandled state :" + STATE);			
+				throw new RuntimeException("FixBookUI : unhandled state :" + state);			
 			
 			}		
 		}		

@@ -4,23 +4,23 @@ import java.util.Scanner;
 
 public class FixBookUI {
 
-    public static enum uIState {
+    public static enum UIState {
         INITIALISED, READY, FIXING, COMPLETED
     };
 
-    private FixBookControl CONTROL;
-    private Scanner INPUT;
-    private uIState STATE;
+    private FixBookControl control;
+    private Scanner input;
+    private UIState state;
 
-    public FixBookUI(FixBookControl CONTROL) {
-        this.CONTROL = CONTROL;
-        INPUT = new Scanner(System.in);
-        STATE = uIState.INITIALISED;
-        CONTROL.setUI(this);
+    public FixBookUI(FixBookControl control) {
+        this.control = control;
+        input = new Scanner(System.in);
+        state = UIState.INITIALISED;
+        control.setUI(this);
     }
 
-    public void setState(uIState state) {
-        this.STATE = state;
+    public void setState(UIState state) {
+        this.state = state;
     }
 
     public void run() {
@@ -28,16 +28,16 @@ public class FixBookUI {
 
         while (true) {
 
-            switch (STATE) {
+            switch (state) {
 
                 case READY:
                     String bookEntityString = input("Scan Book (<enter> completes): ");
                     if (bookEntityString.length() == 0) {
-                        CONTROL.scanningComplete();
+                        control.scanningComplete();
                     } else {
                         try {
                             int bookId = Integer.valueOf(bookEntityString).intValue();
-                            CONTROL.bookScanned(bookId);
+                            control.bookScanned(bookId);
                         } catch (NumberFormatException e) {
                             output("Invalid bookId");
                         }
@@ -51,7 +51,7 @@ public class FixBookUI {
                         fix = true;
                     }
 
-                    CONTROL.fixBook(fix);
+                    control.fixBook(fix);
                     break;
 
                 case COMPLETED:
@@ -60,7 +60,7 @@ public class FixBookUI {
 
                 default:
                     output("Unhandled state");
-                    throw new RuntimeException("FixBookUI : unhandled state :" + STATE);
+                    throw new RuntimeException("FixBookUI : unhandled state :" + state);
 
             }
         }
@@ -69,7 +69,7 @@ public class FixBookUI {
 
     private String input(String prompt) {
         System.out.print(prompt);
-        return INPUT.nextLine();
+        return input.nextLine();
     }
 
     private void output(Object object) {
