@@ -62,8 +62,8 @@ public class Main {
                 output(member);
             }
             output(" ");
-            for (Book b : library.listBooks()) {
-                output(b);
+            for (Book book : library.listBooks()) {
+                output(book);
             }
 
             menu = getMenu();
