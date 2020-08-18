@@ -6,7 +6,7 @@ import library.entities.Loan;
 
 public class ReturnBookControl {
 
-    private ReturnBookUI ui;
+    private ReturnBookUI uI;
 
     private enum ControlState {
         INITIALISED, READY, INSPECTING
@@ -26,7 +26,7 @@ public class ReturnBookControl {
             throw new RuntimeException("ReturnBookControl: cannot call setUI except in INITIALISED state");
         }
 
-        this.ui = ui;
+        this.uI = ui;
         ui.setState(ReturnBookUI.UIState.READY);
         state = ControlState.READY;
     }
@@ -39,11 +39,11 @@ public class ReturnBookControl {
         Book currentBook = library.getBook(bookId);
 
         if (currentBook == null) {
-            ui.display("Invalid Book Id");
+            uI.display("Invalid Book Id");
             return;
         }
         if (!currentBook.isOnLoan()) {
-            ui.display("Book has not been borrowed");
+            uI.display("Book has not been borrowed");
             return;
         }
         currentLoan = library.getLoanByBookId(bookId);
@@ -52,18 +52,18 @@ public class ReturnBookControl {
             overDueFine = library.calculateOverDueFine(currentLoan);
         }
 
-        ui.display("Inspecting");
+        uI.display("Inspecting");
         String currentBookString = currentBook.toString();
-        ui.display(currentBookString);
+        uI.display(currentBookString);
         String currentLoanString = currentLoan.toString();
-        ui.display(currentLoanString);
+        uI.display(currentLoanString);
 
         if (currentLoan.isBookOverdue()) {
             String fineOutput = String.format("\nOverdue fine : $%.2f", overDueFine);
-            ui.display(fineOutput);
+            uI.display(fineOutput);
         }
 
-        ui.setState(ReturnBookUI.UIState.INSPECTING);
+        uI.setState(ReturnBookUI.UIState.INSPECTING);
         state = ControlState.INSPECTING;
     }
 
@@ -72,7 +72,7 @@ public class ReturnBookControl {
             throw new RuntimeException("ReturnBookControl: cannot call scanningComplete except in READY state");
         }
 
-        ui.setState(ReturnBookUI.UIState.COMPLETED);
+        uI.setState(ReturnBookUI.UIState.COMPLETED);
     }
 
     public void dischargeLoan(boolean isDamaged) {
@@ -82,7 +82,7 @@ public class ReturnBookControl {
 
         library.dischargeLoan(currentLoan, isDamaged);
         currentLoan = null;
-        ui.setState(ReturnBookUI.UIState.READY);
+        uI.setState(ReturnBookUI.UIState.READY);
         state = ControlState.READY;
 
     }
