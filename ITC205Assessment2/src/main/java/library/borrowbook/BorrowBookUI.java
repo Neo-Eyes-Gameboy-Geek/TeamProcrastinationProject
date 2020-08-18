@@ -8,15 +8,15 @@ public class BorrowBookUI {
         INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED
     };
 
-    private bORROW_bOOK_cONTROL control;
+    private BorrowBookControl control;
     private Scanner input;
     private UIState state;
 
-    public BorrowBookUI(bORROW_bOOK_cONTROL control) {
+    public BorrowBookUI(BorrowBookControl control) {
         this.control = control;
         input = new Scanner(System.in);
         state = UIState.INITIALISED;
-        control.SeT_Ui(this);
+        control.setUI(this);
     }
 
     private String input(String prompt) {
@@ -46,12 +46,12 @@ public class BorrowBookUI {
                 case READY:
                     String memberIdString = input("Swipe member card (press <enter> to cancel): ");
                     if (memberIdString.length() == 0) {
-                        control.CaNcEl();
+                        control.cancelBorrow();
                         break;
                     }
                     try {
                         int memberIdNumber = Integer.valueOf(memberIdString).intValue();
-                        control.SwIpEd(memberIdNumber);
+                        control.swipeCard(memberIdNumber);
                     } catch (NumberFormatException numberFormatException) {
                         output("Invalid Member Id");
                     }
@@ -59,18 +59,18 @@ public class BorrowBookUI {
 
                 case RESTRICTED:
                     input("Press <any key> to cancel");
-                    control.CaNcEl();
+                    control.cancelBorrow();
                     break;
 
                 case SCANNING:
                     String bookIdString = input("Scan Book (<enter> completes): ");
                     if (bookIdString.length() == 0) {
-                        control.CoMpLeTe();
+                        control.completeBorrow();
                         break;
                     }
                     try {
                         int bookIdNumber = Integer.valueOf(bookIdString).intValue();
-                        control.ScAnNeD(bookIdNumber);
+                        control.scanBook(bookIdNumber);
 
                     } catch (NumberFormatException numberFormatException) {
                         output("Invalid Book Id");
@@ -80,10 +80,10 @@ public class BorrowBookUI {
                 case FINALISING:
                     String answer = input("Commit loans? (Y/N): ");
                     if (answer.toUpperCase().equals("N")) {
-                        control.CaNcEl();
+                        control.cancelBorrow();
 
                     } else {
-                        control.CoMmIt_LoAnS();
+                        control.commitLoans();
                         input("Press <any key> to complete ");
                     }
                     break;

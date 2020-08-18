@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.Date;
 
 import library.borrowbook.BorrowBookUI;
-import library.borrowbook.bORROW_bOOK_cONTROL;
+import library.borrowbook.BorrowBookControl;
 import library.entities.Book;
 import library.entities.Calendar;
 import library.entities.Library;
@@ -161,7 +161,7 @@ public class Main {
     }
 
     private static void borrowBook() {
-        bORROW_bOOK_cONTROL borrowBookControl = new bORROW_bOOK_cONTROL();
+        BorrowBookControl borrowBookControl = new BorrowBookControl();
         new BorrowBookUI(borrowBookControl).runUI();
     }
 
