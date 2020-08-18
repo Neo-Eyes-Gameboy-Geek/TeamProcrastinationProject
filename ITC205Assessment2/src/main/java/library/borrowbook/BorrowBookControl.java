@@ -29,7 +29,7 @@ public class BorrowBookControl {
         state = ControlState.INITIALISED;
     }
 
-    public void setUi(BorrowBookUI ui) {
+    public void setUI(BorrowBookUI ui) {
         if (!state.equals(ControlState.INITIALISED)) {
             throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
         }
