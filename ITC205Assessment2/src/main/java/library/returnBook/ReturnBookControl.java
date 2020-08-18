@@ -27,7 +27,7 @@ public class ReturnBookControl {
         }
 
         this.ui = ui;
-        ui.setState(ReturnBookUI.uiState.READY);
+        ui.setState(ReturnBookUI.UIState.READY);
         state = ControlState.READY;
     }
 
@@ -63,7 +63,7 @@ public class ReturnBookControl {
             ui.display(fineOutput);
         }
 
-        ui.setState(ReturnBookUI.uiState.INSPECTING);
+        ui.setState(ReturnBookUI.UIState.INSPECTING);
         state = ControlState.INSPECTING;
     }
 
@@ -72,7 +72,7 @@ public class ReturnBookControl {
             throw new RuntimeException("ReturnBookControl: cannot call scanningComplete except in READY state");
         }
 
-        ui.setState(ReturnBookUI.uiState.COMPLETED);
+        ui.setState(ReturnBookUI.UIState.COMPLETED);
     }
 
     public void dischargeLoan(boolean isDamaged) {
@@ -82,8 +82,9 @@ public class ReturnBookControl {
 
         library.dischargeLoan(currentLoan, isDamaged);
         currentLoan = null;
-        ui.setState(ReturnBookUI.uiState.READY);
+        ui.setState(ReturnBookUI.UIState.READY);
         state = ControlState.READY;
+
     }
 
 }
