@@ -32,7 +32,7 @@ public class BorrowBookUI {
         this.state = state;
     }
 
-    public void runUi() {
+    public void runUI() {
         output("Borrow Book Use Case UI\n");
 
         while (true) {
