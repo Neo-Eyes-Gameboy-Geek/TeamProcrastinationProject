@@ -99,7 +99,7 @@ public class BorrowBookUI {
         }
     }
 
-    public void displayUi(Object object) {
+    public void displayUI(Object object) {
         output(object);
     }
 
