@@ -177,8 +177,8 @@ public class Main {
 
     private static void incrementDate() {
         try {
-            String noOfDays = input("Enter number of days: ");
-            int days = Integer.valueOf(noOfDays).intValue();
+            String numOfDays = input("Enter number of days: ");
+            int days = Integer.valueOf(numOfDays).intValue();
             calender.incrementDate(days);
             library.checkCurrentLoans();
             Date calenderDate = calender.getDate();
