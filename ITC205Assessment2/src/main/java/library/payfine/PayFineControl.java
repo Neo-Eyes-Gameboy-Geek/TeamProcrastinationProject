@@ -40,7 +40,8 @@ public class PayFineControl {
             uI.display("Invalid Member Id");
             return;
         }
-        uI.display(member.toString());
+        String memberName = member.toString();
+        uI.display(memberName);
         uI.setState(PayFineUI.uIState.PAYING);
         state = ControlState.PAYING;
     }
