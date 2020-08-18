@@ -6,20 +6,20 @@ public class ReturnBookUI {
 
 	public static enum uI_sTaTe { INITIALISED, READY, INSPECTING, COMPLETED };
 
-	private rETURN_bOOK_cONTROL CoNtRoL;
-	private Scanner iNpUt;
+	private rETURN_bOOK_cONTROL CONTROL;
+	private Scanner input;
 	private uI_sTaTe StATe;
 
 	
 	public ReturnBookUI(rETURN_bOOK_cONTROL cOnTrOL) {
-		this.CoNtRoL = cOnTrOL;
-		iNpUt = new Scanner(System.in);
+		this.CONTROL = cOnTrOL;
+		input = new Scanner(System.in);
 		StATe = uI_sTaTe.INITIALISED;
 		cOnTrOL.sEt_uI(this);
 	}
 
 
-	public void RuN() {		
+	public void run() {		
 		oUtPuT("Return Book Use Case UI\n");
 		
 		while (true) {
@@ -30,14 +30,14 @@ public class ReturnBookUI {
 				break;
 				
 			case READY:
-				String BoOk_InPuT_StRiNg = iNpUt("Scan Book (<enter> completes): ");
+				String BoOk_InPuT_StRiNg = input("Scan Book (<enter> completes): ");
 				if (BoOk_InPuT_StRiNg.length() == 0) 
-					CoNtRoL.sCaNnInG_cOmPlEtE();
+					CONTROL.sCaNnInG_cOmPlEtE();
 				
 				else {
 					try {
 						int Book_Id = Integer.valueOf(BoOk_InPuT_StRiNg).intValue();
-						CoNtRoL.bOoK_sCaNnEd(Book_Id);
+						CONTROL.bOoK_sCaNnEd(Book_Id);
 					}
 					catch (NumberFormatException e) {
 						oUtPuT("Invalid bookId");
@@ -46,12 +46,12 @@ public class ReturnBookUI {
 				break;				
 				
 			case INSPECTING:
-				String AnS = iNpUt("Is book damaged? (Y/N): ");
+				String answer = input("Is book damaged? (Y/N): ");
 				boolean Is_DAmAgEd = false;
-				if (AnS.toUpperCase().equals("Y")) 					
+				if (answer.toUpperCase().equals("Y")) 					
 					Is_DAmAgEd = true;
 				
-				CoNtRoL.dIsChArGe_lOaN(Is_DAmAgEd);
+				CONTROL.dIsChArGe_lOaN(Is_DAmAgEd);
 			
 			case COMPLETED:
 				oUtPuT("Return processing complete");
@@ -65,9 +65,9 @@ public class ReturnBookUI {
 	}
 
 	
-	private String iNpUt(String PrOmPt) {
+	private String input(String PrOmPt) {
 		System.out.print(PrOmPt);
-		return iNpUt.nextLine();
+		return input.nextLine();
 	}	
 		
 		
