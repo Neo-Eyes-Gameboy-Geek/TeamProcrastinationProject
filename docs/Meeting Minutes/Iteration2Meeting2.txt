@@ -1,0 +1,18 @@
+Meeting Minutes
+
+-Alain suffered Technical Difficulties which resulted in incomplete tasks by milestone time. Warnings applied as per remediation process
+
+-Mergers Scheduled as follows
+  --> Main
+  --> ReturnBookUI
+  -- Return BookControl
+  --> BorrowBookControl
+  --> BorrowBookUi (Tuesday, 18/08/2020, 2pm)
+
+  ->RepairBookControl
+  ->RepairBookUi
+  ->PayFineControl
+  ->PayFineUi (Wednesday, 19/08/2020, 2pm)
+
+
+-Time to clarify / make presentable documentation will be decided after mergers finish on wednesday
