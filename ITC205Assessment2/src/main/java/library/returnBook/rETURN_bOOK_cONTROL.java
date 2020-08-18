@@ -24,7 +24,7 @@ public class rETURN_bOOK_cONTROL {
 			throw new RuntimeException("ReturnBookControl: cannot call setUI except in INITIALISED state");
 		
 		this.Ui = uI;
-		uI.sEt_sTaTe(ReturnBookUI.uI_sTaTe.READY);
+		uI.sEt_sTaTe(ReturnBookUI.UIState.READY);
 		sTaTe = cOnTrOl_sTaTe.READY;		
 	}
 
@@ -55,7 +55,7 @@ public class rETURN_bOOK_cONTROL {
 		if (CurrENT_loan.isBookOverdue()) 
 			Ui.DiSpLaY(String.format("\nOverdue fine : $%.2f", Over_Due_Fine));
 		
-		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.INSPECTING);
+		Ui.sEt_sTaTe(ReturnBookUI.UIState.INSPECTING);
 		sTaTe = cOnTrOl_sTaTe.INSPECTING;		
 	}
 
@@ -64,7 +64,7 @@ public class rETURN_bOOK_cONTROL {
 		if (!sTaTe.equals(cOnTrOl_sTaTe.READY)) 
 			throw new RuntimeException("ReturnBookControl: cannot call scanningComplete except in READY state");
 			
-		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.COMPLETED);		
+		Ui.sEt_sTaTe(ReturnBookUI.UIState.COMPLETED);		
 	}
 
 
@@ -74,7 +74,7 @@ public class rETURN_bOOK_cONTROL {
 		
 		lIbRaRy.dischargeLoan(CurrENT_loan, iS_dAmAgEd);
 		CurrENT_loan = null;
-		Ui.sEt_sTaTe(ReturnBookUI.uI_sTaTe.READY);
+		Ui.sEt_sTaTe(ReturnBookUI.UIState.READY);
 		sTaTe = cOnTrOl_sTaTe.READY;				
 	}
 

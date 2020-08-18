@@ -13,7 +13,7 @@ import library.entities.Member;
 import library.fixbook.FixBookUI;
 import library.fixbook.fIX_bOOK_cONTROL;
 import library.payfine.PayFineUI;
-import library.payfine.pAY_fINE_cONTROL;
+import library.payfine.PayFineControl;
 import library.returnBook.ReturnBookUI;
 import library.returnBook.rETURN_bOOK_cONTROL;
 
@@ -134,7 +134,7 @@ public class Main {
     }
 
     private static void PAY_FINES() {
-        new PayFineUI(new pAY_fINE_cONTROL()).RuN();
+        new PayFineUI(new PayFineControl()).run();
     }
 
     private static void LIST_CURRENT_LOANS() {
@@ -159,15 +159,15 @@ public class Main {
     }
 
     private static void BORROW_BOOK() {
-        new BorrowBookUI(new bORROW_bOOK_cONTROL()).RuN();
+        new BorrowBookUI(new bORROW_bOOK_cONTROL()).run();
     }
 
     private static void RETURN_BOOK() {
-        new ReturnBookUI(new rETURN_bOOK_cONTROL()).RuN();
+        new ReturnBookUI(new rETURN_bOOK_cONTROL()).run();
     }
 
     private static void FIX_BOOKS() {
-        new FixBookUI(new fIX_bOOK_cONTROL()).RuN();
+        new FixBookUI(new fIX_bOOK_cONTROL()).run();
     }
 
     private static void INCREMENT_DATE() {
