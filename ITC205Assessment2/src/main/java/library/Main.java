@@ -209,7 +209,7 @@ public class Main {
             Member member = library.addMember(lastName, firstName, emailAddress, phoneNumber);
             output("\n" + member + "\n");
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException numberFormatException) {
             output("\nInvalid phone number\n");
         }
 
