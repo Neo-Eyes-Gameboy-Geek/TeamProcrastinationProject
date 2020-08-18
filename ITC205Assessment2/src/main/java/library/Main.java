@@ -2,6 +2,7 @@ package library;
 
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.Date;
 
 import library.borrowbook.BorrowBookUI;
 import library.borrowbook.BorrowBookControl;
@@ -15,20 +16,20 @@ import library.fixbook.fIX_bOOK_cONTROL;
 import library.payfine.PayFineUI;
 import library.payfine.pAY_fINE_cONTROL;
 import library.returnBook.ReturnBookUI;
-import library.returnBook.rETURN_bOOK_cONTROL;
+import library.returnBook.ReturnBookControl;
 
 public class Main {
 
-    private static Scanner IN;
-    private static Library LIB;
-    private static String MENU;
-    private static Calendar CAL;
-    private static SimpleDateFormat SDF;
+    private static Scanner in;
+    private static Library library;
+    private static String menu;
+    private static Calendar calender;
+    private static SimpleDateFormat simpleDateFormat;
 
-    private static String Get_menu() {
-        StringBuilder sb = new StringBuilder();
+    private static String getMenu() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-        sb.append("\nLibrary Main Menu\n\n")
+        stringBuilder.append("\nLibrary Main Menu\n\n")
                 .append("  M  : add member\n")
                 .append("  LM : list members\n")
                 .append("\n")
@@ -47,77 +48,77 @@ public class Main {
                 .append("\n")
                 .append("Choice : ");
 
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
     public static void main(String[] args) {
         try {
-            IN = new Scanner(System.in);
-            LIB = Library.getInstance();
-            CAL = Calendar.getCalendarInstance();
-            SDF = new SimpleDateFormat("dd/MM/yyyy");
+            in = new Scanner(System.in);
+            library = Library.getInstance();
+            calender = Calendar.getCalendarInstance();
+            simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-            for (Member m : LIB.listMembers()) {
-                output(m);
+            for (Member member : library.listMembers()) {
+                output(member);
             }
             output(" ");
-            for (Book b : LIB.listBooks()) {
-                output(b);
+            for (Book book : library.listBooks()) {
+                output(book);
             }
 
-            MENU = Get_menu();
+            menu = getMenu();
 
-            boolean e = false;
+            boolean exit = false;
 
-            while (!e) {
+            while (!exit) {
+                Date calenderDate = calender.getDate();
+                output("\n" + simpleDateFormat.format(calenderDate));
+                String choice = input(menu);
 
-                output("\n" + SDF.format(CAL.getDate()));
-                String c = input(MENU);
-
-                switch (c.toUpperCase()) {
+                switch (choice.toUpperCase()) {
 
                     case "M":
-                        ADD_MEMBER();
+                        addMember();
                         break;
 
                     case "LM":
-                        LIST_MEMBERS();
+                        listMembers();
                         break;
 
                     case "B":
-                        ADD_BOOK();
+                        addBook();
                         break;
 
                     case "LB":
-                        LIST_BOOKS();
+                        listBooks();
                         break;
 
                     case "FB":
-                        FIX_BOOKS();
+                        fixBooks();
                         break;
 
                     case "L":
-                        BORROW_BOOK();
+                        borrowBook();
                         break;
 
                     case "R":
-                        RETURN_BOOK();
+                        returnBook();
                         break;
 
                     case "LL":
-                        LIST_CURRENT_LOANS();
+                        listCurrentLoans();
                         break;
 
                     case "P":
-                        PAY_FINES();
+                        payFines();
                         break;
 
                     case "T":
-                        INCREMENT_DATE();
+                        incrementDate();
                         break;
 
                     case "Q":
-                        e = true;
+                        exit = true;
                         break;
 
                     default:
@@ -133,75 +134,83 @@ public class Main {
         output("\nEnded\n");
     }
 
-    private static void PAY_FINES() {
-        new PayFineUI(new pAY_fINE_cONTROL()).RuN();
+    private static void payFines() {
+        pAY_fINE_cONTROL payFineControl = new pAY_fINE_cONTROL();
+        new PayFineUI(payFineControl).RuN();
     }
 
-    private static void LIST_CURRENT_LOANS() {
+    private static void listCurrentLoans() {
         output("");
-        for (Loan loan : LIB.listCurrentLoans()) {
+        for (Loan loan : library.listCurrentLoans()) {
             output(loan + "\n");
         }
     }
 
-    private static void LIST_BOOKS() {
+    private static void listBooks() {
         output("");
-        for (Book book : LIB.listBooks()) {
+        for (Book book : library.listBooks()) {
             output(book + "\n");
         }
     }
 
-    private static void LIST_MEMBERS() {
+    private static void listMembers() {
         output("");
-        for (Member member : LIB.listMembers()) {
+        for (Member member : library.listMembers()) {
             output(member + "\n");
         }
     }
 
-    private static void BORROW_BOOK() {
-        new BorrowBookUI(new BorrowBookControl()).RuN();
+    private static void borrowBook() {
+        BorrowBookControl borrowBookControl = new BorrowBookControl();
+        new BorrowBookUI(borrowBookControl).runUI();
     }
 
-    private static void RETURN_BOOK() {
-        new ReturnBookUI(new rETURN_bOOK_cONTROL()).RuN();
+
+    private static void returnBook() {
+        ReturnBookControl returnBookControl = new ReturnBookControl();
+        new ReturnBookUI(returnBookControl).run();
     }
 
-    private static void FIX_BOOKS() {
-        new FixBookUI(new fIX_bOOK_cONTROL()).RuN();
+    private static void fixBooks() {
+        fIX_bOOK_cONTROL fixBookControl = new fIX_bOOK_cONTROL();
+        new FixBookUI(fixBookControl).RuN();
     }
 
-    private static void INCREMENT_DATE() {
+    private static void incrementDate() {
         try {
-            int days = Integer.valueOf(input("Enter number of days: ")).intValue();
-            CAL.incrementDate(days);
-            LIB.checkCurrentLoans();
-            output(SDF.format(CAL.getDate()));
+            String numOfDays = input("Enter number of days: ");
+            int days = Integer.valueOf(numOfDays).intValue();
+            calender.incrementDate(days);
+            library.checkCurrentLoans();
+            Date calenderDate = calender.getDate();
+            output(simpleDateFormat.format(calenderDate));
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException numberFormatException) {
             output("\nInvalid number of days\n");
         }
     }
 
-    private static void ADD_BOOK() {
+    private static void addBook() {
 
-        String AuThOr = input("Enter author: ");
-        String TiTlE = input("Enter title: ");
-        String CaLl_NuMbEr = input("Enter call number: ");
-        Book BoOk = LIB.addBook(AuThOr, TiTlE, CaLl_NuMbEr);
-        output("\n" + BoOk + "\n");
+        String author = input("Enter author: ");
+        String title = input("Enter title: ");
+        String callNumber = input("Enter call number: ");
+        Book book = library.addBook(author, title, callNumber);
+        output("\n" + book + "\n");
 
     }
 
-    private static void ADD_MEMBER() {
+    private static void addMember() {
         try {
-            String LaSt_NaMe = input("Enter last name: ");
-            String FiRsT_NaMe = input("Enter first name: ");
-            String EmAiL_AdDrEsS = input("Enter email address: ");
-            int PhOnE_NuMbEr = Integer.valueOf(input("Enter phone number: ")).intValue();
-            Member MeMbEr = LIB.addMember(LaSt_NaMe, FiRsT_NaMe, EmAiL_AdDrEsS, PhOnE_NuMbEr);
-            output("\n" + MeMbEr + "\n");
+            String lastName = input("Enter last name: ");
+            String firstName = input("Enter first name: ");
+            String emailAddress = input("Enter email address: ");
+            String phoNumString = input("Enter phone number: ");
+            int phoneNumber = Integer.valueOf(phoNumString).intValue();
+            Member member = library.addMember(lastName, firstName, emailAddress, phoneNumber);
+            output("\n" + member + "\n");
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException numberFormatException) {
             output("\nInvalid phone number\n");
         }
 
@@ -209,7 +218,7 @@ public class Main {
 
     private static String input(String prompt) {
         System.out.print(prompt);
-        return IN.nextLine();
+        return in.nextLine();
     }
 
     private static void output(Object object) {
