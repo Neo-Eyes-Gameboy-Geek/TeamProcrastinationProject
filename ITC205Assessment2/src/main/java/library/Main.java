@@ -13,7 +13,7 @@ import library.entities.Member;
 import library.fixbook.FixBookUI;
 import library.fixbook.fIX_bOOK_cONTROL;
 import library.payfine.PayFineUI;
-import library.payfine.pAY_fINE_cONTROL;
+import library.payfine.PayFineControl;
 import library.returnBook.ReturnBookUI;
 import library.returnBook.rETURN_bOOK_cONTROL;
 
@@ -134,7 +134,7 @@ public class Main {
     }
 
     private static void PAY_FINES() {
-        new PayFineUI(new pAY_fINE_cONTROL()).RuN();
+        new PayFineUI(new PayFineControl()).RuN();
     }
 
     private static void LIST_CURRENT_LOANS() {
@@ -198,8 +198,8 @@ public class Main {
             String FiRsT_NaMe = input("Enter first name: ");
             String EmAiL_AdDrEsS = input("Enter email address: ");
             int PhOnE_NuMbEr = Integer.valueOf(input("Enter phone number: ")).intValue();
-            Member MeMbEr = LIB.addMember(LaSt_NaMe, FiRsT_NaMe, EmAiL_AdDrEsS, PhOnE_NuMbEr);
-            output("\n" + MeMbEr + "\n");
+            Member member = LIB.addMember(LaSt_NaMe, FiRsT_NaMe, EmAiL_AdDrEsS, PhOnE_NuMbEr);
+            output("\n" + member + "\n");
 
         } catch (NumberFormatException e) {
             output("\nInvalid phone number\n");
