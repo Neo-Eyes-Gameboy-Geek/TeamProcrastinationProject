@@ -16,7 +16,7 @@ public class FixBookUI {
         this.control = control;
         input = new Scanner(System.in);
         state = UIState.INITIALISED;
-        control.setUI(this);
+        control.SeT_Ui(this);
     }
 
     public void setState(UIState state) {
@@ -33,11 +33,11 @@ public class FixBookUI {
                 case READY:
                     String bookEntityString = input("Scan Book (<enter> completes): ");
                     if (bookEntityString.length() == 0) {
-                        control.scanningComplete();
+                        control.SCannING_COMplete();
                     } else {
                         try {
                             int bookId = Integer.valueOf(bookEntityString).intValue();
-                            control.bookScanned(bookId);
+                            control.BoOk_ScAnNeD(bookId);
                         } catch (NumberFormatException numberFormatException) {
                             output("Invalid bookId");
                         }
@@ -51,7 +51,7 @@ public class FixBookUI {
                         fix = true;
                     }
 
-                    control.fixBook(fix);
+                    control.FiX_BoOk(fix);
                     break;
 
                 case COMPLETED:
