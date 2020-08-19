@@ -39,7 +39,7 @@ public class PayFineUI {
                     try {
                         int memberId = Integer.valueOf(memberCardId).intValue();
                         control.cardSwiped(memberId);
-                    } catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException numberFormatException) {
                         output("Invalid memberId");
                     }
                     break;
