@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class FixBookUI {
 
+<<<<<<< HEAD
 	public static enum uIState { INITIALISED, READY, FIXING, COMPLETED };
 
 	private FixBookControl CoNtRoL;
@@ -20,11 +21,29 @@ public class FixBookUI {
 
 
 	public void setState(uIState state) {
+=======
+	public static enum UIState { INITIALISED, READY, FIXING, COMPLETED };
+
+	private fIX_bOOK_cONTROL control;
+	private Scanner InPuT;
+	private UIState state;
+
+	
+	public FixBookUI(fIX_bOOK_cONTROL control) {
+		this.control = control;
+		InPuT = new Scanner(System.in);
+		state = UIState.INITIALISED;
+		control.SeT_Ui(this);
+	}
+
+
+	public void setState(UIState state) {
+>>>>>>> master
 		this.state = state;
 	}
 
 	
-	public void RuN() {
+	public void run() {
 		OuTpUt("Fix Book Use Case UI\n");
 		
 		while (true) {
@@ -34,12 +53,12 @@ public class FixBookUI {
 			case READY:
 				String BoOk_EnTrY_StRiNg = iNpUt("Scan Book (<enter> completes): ");
 				if (BoOk_EnTrY_StRiNg.length() == 0) 
-					CoNtRoL.SCannING_COMplete();
+					control.SCannING_COMplete();
 				
 				else {
 					try {
 						int BoOk_Id = Integer.valueOf(BoOk_EnTrY_StRiNg).intValue();
-						CoNtRoL.BoOk_ScAnNeD(BoOk_Id);
+						control.BoOk_ScAnNeD(BoOk_Id);
 					}
 					catch (NumberFormatException e) {
 						OuTpUt("Invalid bookId");
@@ -53,7 +72,7 @@ public class FixBookUI {
 				if (AnS.toUpperCase().equals("Y")) 
 					FiX = true;
 				
-				CoNtRoL.FiX_BoOk(FiX);
+				control.FiX_BoOk(FiX);
 				break;
 								
 			case COMPLETED:
