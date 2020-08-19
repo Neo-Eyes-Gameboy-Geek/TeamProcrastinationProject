@@ -26,7 +26,7 @@ public class FixBookControl {
         }
 
         this.uI = uI;
-        uI.setState(FixBookUI.uIState.READY);
+        uI.setState(FixBookUI.UIState.READY);
         state = ControlState.READY;
     }
 
@@ -47,7 +47,7 @@ public class FixBookControl {
         }
         String bookName = currentBook.toString();
         uI.display(bookName);
-        uI.setState(FixBookUI.uIState.FIXING);
+        uI.setState(FixBookUI.UIState.FIXING);
         state = ControlState.FIXING;
     }
 
@@ -61,7 +61,7 @@ public class FixBookControl {
         }
 
         currentBook = null;
-        uI.setState(FixBookUI.uIState.READY);
+        uI.setState(FixBookUI.UIState.READY);
         state = ControlState.READY;
     }
 
@@ -70,7 +70,7 @@ public class FixBookControl {
             throw new RuntimeException("FixBookControl: cannot call scanningComplete except in READY state");
         }
 
-        uI.setState(FixBookUI.uIState.COMPLETED);
+        uI.setState(FixBookUI.UIState.COMPLETED);
     }
 
 }

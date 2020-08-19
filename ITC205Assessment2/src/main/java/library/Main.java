@@ -14,7 +14,7 @@ import library.entities.Member;
 import library.fixbook.FixBookUI;
 import library.fixbook.FixBookControl;
 import library.payfine.PayFineUI;
-import library.payfine.pAY_fINE_cONTROL;
+import library.payfine.PayFineControl;
 import library.returnBook.ReturnBookUI;
 import library.returnBook.ReturnBookControl;
 
@@ -135,8 +135,8 @@ public class Main {
     }
 
     private static void payFines() {
-        pAY_fINE_cONTROL payFineControl = new pAY_fINE_cONTROL();
-        new PayFineUI(payFineControl).RuN();
+        PayFineControl payFineControl = new PayFineControl();
+        new PayFineUI(payFineControl).run();
     }
 
     private static void listCurrentLoans() {
@@ -173,7 +173,7 @@ public class Main {
 
     private static void fixBooks() {
         FixBookControl fixBookControl = new FixBookControl();
-        new FixBookUI(fixBookControl).RuN();
+        new FixBookUI(fixBookControl).run();
     }
 
     private static void incrementDate() {

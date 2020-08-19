@@ -80,5 +80,4 @@ public class ReturnBookUI {
     public void setState(UIState state) {
         this.state = state;
     }
-
 }
