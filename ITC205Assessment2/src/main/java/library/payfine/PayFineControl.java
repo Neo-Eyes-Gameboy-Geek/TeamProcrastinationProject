@@ -4,66 +4,64 @@ import library.entities.Member;
 
 public class PayFineControl {
 	
-	private PayFineUI Ui;
-	private enum cOnTrOl_sTaTe { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
-	private cOnTrOl_sTaTe state;
+	private PayFineUI uI;
+	private enum ControlState { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
+	private ControlState state;
 	
-	private Library LiBrArY;
-	private Member MeMbEr;
+	private Library Library;
+	private Member Member;
 
 
 	public PayFineControl() {
-		this.LiBrArY = Library.getInstance();
-		state = cOnTrOl_sTaTe.INITIALISED;
+		this.Library = Library.getInstance();
+		state = ControlState.INITIALISED;
 	}
 	
 	
-	public void SeT_uI(PayFineUI uI) {
-		if (!state.equals(cOnTrOl_sTaTe.INITIALISED)) {
+	public void setUI(PayFineUI uI) {
+		if (!state.equals(ControlState.INITIALISED)) {
 			throw new RuntimeException("PayFineControl: cannot call setUI except in INITIALISED state");
 		}	
-		this.Ui = uI;
+		this.uI = uI;
 		uI.setState(PayFineUI.UIState.READY);
-		state = cOnTrOl_sTaTe.READY;		
+		state = ControlState.READY;		
 	}
 
 
-	public void CaRd_sWiPeD(int MeMbEr_Id) {
-		if (!state.equals(cOnTrOl_sTaTe.READY)) 
+	public void cardSwiped(int memberId) {
+		if (!state.equals(ControlState.READY)) 
 			throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
 			
-		MeMbEr = LiBrArY.getMember(MeMbEr_Id);
+		Member = Library.getMember(memberId);
 		
-		if (MeMbEr == null) {
-			Ui.display("Invalid Member Id");
+		if (Member == null) {
+			uI.display("Invalid Member Id");
 			return;
 		}
-		Ui.display(MeMbEr.toString());
-		Ui.setState(PayFineUI.UIState.PAYING);
-		state = cOnTrOl_sTaTe.PAYING;
+                String memberName = Member.toString();
+		uI.display(memberName);
+		uI.setState(PayFineUI.UIState.PAYING);
+		state = ControlState.PAYING;
 	}
 	
 	
-	public void CaNcEl() {
-		Ui.setState(PayFineUI.UIState.CANCELLED);
-		state = cOnTrOl_sTaTe.CANCELLED;
+	public void cancel() {
+		uI.setState(PayFineUI.UIState.CANCELLED);
+		state = ControlState.CANCELLED;
 	}
 
-
-	public double PaY_FiNe(double AmOuNt) {
-		if (!state.equals(cOnTrOl_sTaTe.PAYING)) 
+	public double payFine(double amount) {
+		if (!state.equals(ControlState.PAYING)) 
 			throw new RuntimeException("PayFineControl: cannot call payFine except in PAYING state");
 			
-		double ChAnGe = MeMbEr.payFine(AmOuNt);
-		if (ChAnGe > 0) 
-			Ui.display(String.format("Change: $%.2f", ChAnGe));
+		double change = Member.payFine(amount);
+		if (change > 0) 
+			uI.display(String.format("Change: $%.2f", change));
 		
-		Ui.display(MeMbEr.toString());
-		Ui.setState(PayFineUI.UIState.COMPLETED);
-		state = cOnTrOl_sTaTe.COMPLETED;
-		return ChAnGe;
+		uI.display(Member.toString());
+		uI.setState(PayFineUI.UIState.COMPLETED);
+		state = ControlState.COMPLETED;
+		return change;
 	}
-	
-
-
+        
 }
