@@ -37,7 +37,7 @@ public class PayFineControl {
         member = library.getMember(memberId);
 
         if (member == null) {
-            uI.display("Invalid Member Id");
+            uI.display("Invalid member Id");
             return;
         }
         String memberName = member.toString();
