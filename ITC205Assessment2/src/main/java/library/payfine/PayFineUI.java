@@ -53,7 +53,7 @@ public class PayFineUI {
                     }
                     try {
                         payAmount = Double.valueOf(payAmountString).doubleValue();
-                    } catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException numberFormatException) {
                     }
                     if (payAmount <= 0) {
                         output("Amount must be positive");
