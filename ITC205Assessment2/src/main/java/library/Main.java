@@ -136,11 +136,7 @@ public class Main {
 
     private static void payFines() {
         PayFineControl payFineControl = new PayFineControl();
-<<<<<<< HEAD
-        new PayFineUI(payFineControl).RuN();
-=======
         new PayFineUI(payFineControl).run();
->>>>>>> master
     }
 
     private static void listCurrentLoans() {
@@ -176,13 +172,8 @@ public class Main {
     }
 
     private static void fixBooks() {
-<<<<<<< HEAD
         FixBookControl fixBookControl = new FixBookControl();
-        new FixBookUI(fixBookControl).RuN();
-=======
-        fIX_bOOK_cONTROL fixBookControl = new fIX_bOOK_cONTROL();
         new FixBookUI(fixBookControl).run();
->>>>>>> master
     }
 
     private static void incrementDate() {
